@@ -1,0 +1,116 @@
+/* Footer styles matching your site's look-and-feel (desktop-first) */
+
+.rn-footer {
+  width: 100%;
+  box-sizing: border-box;
+  color: #ffffff;
+  background: #1f1f1f;
+  border-top: 6px solid #ffd600;
+  margin-top: 36px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Main inner area */
+.rn-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 18px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+/* Column headings */
+.footer-title {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  color: #ffd600; /* yellow */
+}
+.footer-subtitle {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #ffd600;
+}
+
+/* Text and links */
+.footer-desc {
+  margin: 0;
+  color: #ddd;
+  line-height: 1.4;
+}
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.footer-col li {
+  margin: 6px 0;
+}
+.footer-col a,
+.footer-col a:visited,
+.footer-col a:active,
+.footer-col a:hover {
+  color: #ffd600;
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer-col a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Social pills */
+.social-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background: #c8102e; /* red */
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Bottom strip */
+.rn-footer-bottom {
+  background: #0f0f0f;
+  padding: 10px 18px;
+  margin-top: 12px;
+}
+.rn-footer-bottom-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  color: #aaa;
+  font-size: 13px;
+}
+.rn-footer-bottom-inner .bottom-links a,
+.rn-footer-bottom-inner .bottom-links .external-link {
+  margin-left: 12px;
+  color: #ffd600;
+  text-decoration: none;
+}
+.rn-footer-bottom-inner .bottom-links a:hover,
+.rn-footer-bottom-inner .bottom-links .external-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Small helper: make Link elements visually identical to anchors */
+.rn-footer a {
+  cursor: pointer;
+}
+
+/* Desktop-only: no mobile rules added here */

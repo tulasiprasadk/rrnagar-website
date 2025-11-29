@@ -1,15 +1,20 @@
 ﻿import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="footer-inner">
-        <div className="footer-columns">
-          {/* Keep the rest of your footer content here (links, contact, socials, etc.) */}
-        </div>
+    <footer>
+      <div style={{ padding: "16px", textAlign: "center" }}>
+        <nav>
+          <Link to="/partner" style={{ marginRight: 16, color: "inherit", textDecoration: "none" }}>
+            Partner Us
+          </Link>
+          <Link to="/blog" style={{ color: "inherit", textDecoration: "none" }}>
+            Blog
+          </Link>
+        </nav>
 
-        {/* Simple ASCII copyright line to avoid encoding issues */}
-        <div className="footer-copyright" style={{ padding: "12px 0", textAlign: "center" }}>
+        <div style={{ marginTop: 12, fontSize: 13, color: "#666" }}>
           (C) 2025 RR Nagar. All rights reserved.
         </div>
       </div>

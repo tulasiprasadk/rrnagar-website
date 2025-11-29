@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route  } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -28,7 +28,7 @@ import RequireSupplierAuth from "./supplier/RequireAuth";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    
       <Header />
 
       <ErrorBoundary>
@@ -70,6 +70,6 @@ export default function App() {
       </ErrorBoundary>
 
       <Footer />
-    </BrowserRouter>
+
   );
 }

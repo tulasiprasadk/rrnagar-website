@@ -1,10 +1,22 @@
-﻿import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+import App from "./App";
+import { QuickCartProvider } from "./contexts/QuickCartContext";
+import { NotificationProvider } from "./contexts/NotificationContext";
+import QuickCartSidebar from "./components/QuickCartSidebar";
+import FloatingMessageButton from "./components/FloatingMessageButton";
+
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("app")).render(
+createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <NotificationProvider>
+      <QuickCartProvider>
+        <App />
+        <QuickCartSidebar />
+        <FloatingMessageButton />
+      </QuickCartProvider>
+    </NotificationProvider>
   </React.StrictMode>
 );

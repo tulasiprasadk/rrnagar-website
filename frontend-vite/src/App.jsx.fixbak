@@ -27,12 +27,6 @@ import SupplierKyc from "./supplier/Kyc";
 import RequireSupplierAuth from "./supplier/RequireAuth";
 import Checkout from './pages/Checkout';
 import AdminPaymentSettings from './admin/AdminPaymentSettings';
-import LoginPhone from "./pages/LoginPhone";
-import OTPConfirm from "./pages/OTPConfirm";
-import ConfirmUPI from "./pages/ConfirmUPI";
-import ConfirmPI from "./pages/ConfirmPI";
-import Orders from "./pages/Orders";
-import OrderDetails from "./pages/OrderDetails";
 
 export default function App() {
   return (
@@ -73,8 +67,8 @@ export default function App() {
             */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/*" element={<AdminApp />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/admin/payment-settings" element={<AdminPaymentSettings />} />          </Routes>
+                      <Route path=""/checkout"" element={<Checkout />} />
+            <Route path=""/admin/payment-settings"" element={<AdminPaymentSettings />} />          </Routes>
         </Suspense>
       </ErrorBoundary>
 
@@ -82,3 +76,4 @@ export default function App() {
     </BrowserRouter>
   );
 }
+

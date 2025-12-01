@@ -1,0 +1,300 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/PaymentOptions.jsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=adceca26"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+var _s = $RefreshSig$();
+import __vite__cjsImport1_react from "/node_modules/.vite/deps/react.js?v=adceca26"; const React = __vite__cjsImport1_react.__esModule ? __vite__cjsImport1_react.default : __vite__cjsImport1_react; const useEffect = __vite__cjsImport1_react["useEffect"]; const useState = __vite__cjsImport1_react["useState"];
+import { createOrder, createPiInvoice } from "/src/api/payments.js";
+import { getSettings as fetchSettings } from "/src/api/adminSettings.js";
+import { useNavigate } from "/node_modules/.vite/deps/react-router-dom.js?v=adceca26";
+export default function PaymentOptions({ items = [], total = 0 }) {
+  _s();
+  const [method, setMethod] = useState("upi");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [settings, setSettings] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    fetchSettings().then(setSettings).catch(() => setSettings(null));
+  }, []);
+  const totalRounded = Math.round((total + Number.EPSILON) * 100) / 100;
+  function buildUpiUri() {
+    const vpa = settings && settings.upiVpa || "";
+    const name = settings && settings.upiName || "";
+    const phone2 = settings && settings.upiPhone || "";
+    const pa2 = vpa || "";
+    const am = totalRounded.toFixed(2);
+    const tn = encodeURIComponent("Order payment");
+    const pn2 = encodeURIComponent(name);
+    const upiUri2 = `upi://pay?pa=${encodeURIComponent(pa2)}&pn=${pn2}&am=${encodeURIComponent(am)}&cu=INR&tn=${tn}`;
+    return { upiUri: upiUri2, pa: pa2, pn: pn2, phone: phone2 };
+  }
+  async function handleUpiStart() {
+    setLoading(true);
+    setError("");
+    try {
+      const { upiUri: upiUri2, pa: pa2 } = buildUpiUri();
+      const orderPayload = {
+        items,
+        total: totalRounded,
+        paymentMethod: "upi",
+        paid: false,
+        status: "pending",
+        upiUri: upiUri2,
+        createdAt: (/* @__PURE__ */ new Date()).toISOString()
+      };
+      const order = await createOrder(orderPayload);
+      navigate(`/confirm/upi/${order.id}`);
+    } catch (err) {
+      setError(err?.message || "UPI start failed");
+    } finally {
+      setLoading(false);
+    }
+  }
+  async function handlePiStart() {
+    setLoading(true);
+    setError("");
+    try {
+      const rate = settings && Number(settings.piRateINRPerPi) || 0;
+      const piAmount = rate > 0 ? +(totalRounded / rate).toFixed(6) : 0;
+      const piAddress = settings && settings.piReceiverAddress || `pi:${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+      const invoice = await createPiInvoice({
+        items,
+        total: totalRounded,
+        piAmount,
+        piAddress,
+        paymentMethod: "pi"
+      });
+      navigate(`/confirm/pi/${invoice.id}`);
+    } catch (err) {
+      setError(err?.message || "PI invoice failed");
+    } finally {
+      setLoading(false);
+    }
+  }
+  const { upiUri, pa, pn, phone } = buildUpiUri();
+  const qrData = settings && settings.upiQrUrl ? settings.upiQrUrl : `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUri)}`;
+  return /* @__PURE__ */ jsxDEV("div", { style: { border: "1px solid #ddd", padding: 16, borderRadius: 8 }, children: [
+    /* @__PURE__ */ jsxDEV("h3", { children: "Payment" }, void 0, false, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 90,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 8 }, children: /* @__PURE__ */ jsxDEV("label", { children: [
+      /* @__PURE__ */ jsxDEV("input", { type: "radio", name: "method", value: "upi", checked: method === "upi", onChange: () => setMethod("upi") }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 94,
+        columnNumber: 11
+      }, this),
+      "UPI"
+    ] }, void 0, true, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 93,
+      columnNumber: 9
+    }, this) }, void 0, false, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 92,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 12 }, children: /* @__PURE__ */ jsxDEV("label", { children: [
+      /* @__PURE__ */ jsxDEV("input", { type: "radio", name: "method", value: "pi", checked: method === "pi", onChange: () => setMethod("pi") }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 101,
+        columnNumber: 11
+      }, this),
+      "PI Network (manual)"
+    ] }, void 0, true, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 100,
+      columnNumber: 9
+    }, this) }, void 0, false, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 99,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 12 }, children: [
+      /* @__PURE__ */ jsxDEV("strong", { children: "Total: " }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 107,
+        columnNumber: 9
+      }, this),
+      " ₹",
+      totalRounded
+    ] }, void 0, true, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 106,
+      columnNumber: 7
+    }, this),
+    error && /* @__PURE__ */ jsxDEV("div", { style: { color: "crimson", marginBottom: 8 }, children: error }, void 0, false, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 110,
+      columnNumber: 17
+    }, this),
+    method === "upi" && /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 12 }, children: [
+      /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 8 }, children: settings ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+        /* @__PURE__ */ jsxDEV("div", { children: [
+          /* @__PURE__ */ jsxDEV("strong", { children: "UPI VPA:" }, void 0, false, {
+            fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+            lineNumber: 117,
+            columnNumber: 22
+          }, this),
+          " ",
+          pa || "Not configured"
+        ] }, void 0, true, {
+          fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+          lineNumber: 117,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { children: [
+          /* @__PURE__ */ jsxDEV("strong", { children: "Recipient name:" }, void 0, false, {
+            fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+            lineNumber: 118,
+            columnNumber: 22
+          }, this),
+          " ",
+          pn || "Not configured"
+        ] }, void 0, true, {
+          fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+          lineNumber: 118,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { children: [
+          /* @__PURE__ */ jsxDEV("strong", { children: "Phone (admin):" }, void 0, false, {
+            fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+            lineNumber: 119,
+            columnNumber: 22
+          }, this),
+          " ",
+          phone || "Not configured"
+        ] }, void 0, true, {
+          fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+          lineNumber: 119,
+          columnNumber: 17
+        }, this)
+      ] }, void 0, true, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 116,
+        columnNumber: 11
+      }, this) : /* @__PURE__ */ jsxDEV("div", { children: "Loading UPI settings…" }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 122,
+        columnNumber: 11
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 114,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 8 }, children: /* @__PURE__ */ jsxDEV("img", { src: qrData, alt: "UPI QR", style: { width: 200, height: 200 } }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 127,
+        columnNumber: 13
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 126,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ jsxDEV("button", { disabled: loading, onClick: handleUpiStart, style: { padding: "8px 12px" }, children: loading ? "Processing..." : "Proceed to UPI confirmation" }, void 0, false, {
+          fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+          lineNumber: 131,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            onClick: () => {
+              try {
+                navigator.clipboard.writeText(upiUri);
+                alert("UPI URI copied");
+              } catch {
+                alert("Unable to copy UPI URI");
+              }
+            },
+            style: { marginLeft: 8, padding: "8px 12px" },
+            children: "Copy UPI URI"
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+            lineNumber: 134,
+            columnNumber: 13
+          },
+          this
+        )
+      ] }, void 0, true, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 130,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 113,
+      columnNumber: 7
+    }, this),
+    method === "pi" && /* @__PURE__ */ jsxDEV(Fragment, { children: /* @__PURE__ */ jsxDEV("div", { children: [
+      /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 8 }, children: [
+        /* @__PURE__ */ jsxDEV("strong", { children: "PI conversion rate (INR per PI):" }, void 0, false, {
+          fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+          lineNumber: 155,
+          columnNumber: 15
+        }, this),
+        " ",
+        settings ? settings.piRateINRPerPi : "loading"
+      ] }, void 0, true, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 154,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { style: { marginBottom: 8 }, children: /* @__PURE__ */ jsxDEV("button", { disabled: loading, onClick: handlePiStart, style: { padding: "8px 12px" }, children: loading ? "Processing..." : "Create PI invoice" }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 158,
+        columnNumber: 15
+      }, this) }, void 0, false, {
+        fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+        lineNumber: 157,
+        columnNumber: 13
+      }, this)
+    ] }, void 0, true, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 153,
+      columnNumber: 11
+    }, this) }, void 0, false, {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+      lineNumber: 152,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx",
+    lineNumber: 89,
+    columnNumber: 5
+  }, this);
+}
+_s(PaymentOptions, "+fw8KNYgO9ygKURGXkSJEc+8CHA=", false, function() {
+  return [useNavigate];
+});
+_c = PaymentOptions;
+var _c;
+$RefreshReg$(_c, "PaymentOptions");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) {
+  return RefreshRuntime.register(type, "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/PaymentOptions.jsx " + id);
+}
+function $RefreshSig$() {
+  return RefreshRuntime.createSignatureFunctionForTransform();
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBeUZNLFNBMEJRLFVBMUJSOztBQXpGTCxPQUFPQSxTQUFTQyxXQUFXQyxnQkFBZ0I7QUFDNUMsU0FBU0MsYUFBYUMsdUJBQXVCO0FBQzdDLFNBQVNDLGVBQWVDLHFCQUFxQjtBQUM3QyxTQUFTQyxtQkFBbUI7QUFTNUIsd0JBQXdCQyxlQUFlLEVBQUVDLFFBQVEsSUFBSUMsUUFBUSxFQUFFLEdBQUc7QUFBQUMsS0FBQTtBQUNoRSxRQUFNLENBQUNDLFFBQVFDLFNBQVMsSUFBSVgsU0FBUyxLQUFLO0FBQzFDLFFBQU0sQ0FBQ1ksU0FBU0MsVUFBVSxJQUFJYixTQUFTLEtBQUs7QUFDNUMsUUFBTSxDQUFDYyxPQUFPQyxRQUFRLElBQUlmLFNBQVMsRUFBRTtBQUNyQyxRQUFNLENBQUNnQixVQUFVQyxXQUFXLElBQUlqQixTQUFTLElBQUk7QUFDN0MsUUFBTWtCLFdBQVdiLFlBQVk7QUFFN0JOLFlBQVUsTUFBTTtBQUNkSyxrQkFBYyxFQUFFZSxLQUFLRixXQUFXLEVBQUVHLE1BQU0sTUFBTUgsWUFBWSxJQUFJLENBQUM7QUFBQSxFQUNqRSxHQUFHLEVBQUU7QUFFTCxRQUFNSSxlQUFlQyxLQUFLQyxPQUFPZixRQUFRZ0IsT0FBT0MsV0FBVyxHQUFHLElBQUk7QUFFbEUsV0FBU0MsY0FBYztBQUNyQixVQUFNQyxNQUFPWCxZQUFZQSxTQUFTWSxVQUFXO0FBQzdDLFVBQU1DLE9BQVFiLFlBQVlBLFNBQVNjLFdBQVk7QUFDL0MsVUFBTUMsU0FBU2YsWUFBWUEsU0FBU2dCLFlBQWE7QUFDakQsVUFBTUMsTUFBS04sT0FBTztBQUNsQixVQUFNTyxLQUFLYixhQUFhYyxRQUFRLENBQUM7QUFDakMsVUFBTUMsS0FBS0MsbUJBQW1CLGVBQWU7QUFDN0MsVUFBTUMsTUFBS0QsbUJBQW1CUixJQUFJO0FBQ2xDLFVBQU1VLFVBQVMsZ0JBQWdCRixtQkFBbUJKLEdBQUUsQ0FBQyxPQUFPSyxHQUFFLE9BQU9ELG1CQUFtQkgsRUFBRSxDQUFDLGNBQWNFLEVBQUU7QUFDM0csV0FBTyxFQUFFRyxpQkFBUU4sU0FBSUssU0FBSVAsY0FBTTtBQUFBLEVBQ2pDO0FBRUEsaUJBQWVTLGlCQUFpQjtBQUM5QjNCLGVBQVcsSUFBSTtBQUNmRSxhQUFTLEVBQUU7QUFDWCxRQUFJO0FBQ0YsWUFBTSxFQUFFd0IsaUJBQVFOLFFBQUcsSUFBSVAsWUFBWTtBQUVuQyxZQUFNZSxlQUFlO0FBQUEsUUFDbkJsQztBQUFBQSxRQUNBQyxPQUFPYTtBQUFBQSxRQUNQcUIsZUFBZTtBQUFBLFFBQ2ZDLE1BQU07QUFBQSxRQUNOQyxRQUFRO0FBQUEsUUFDUkw7QUFBQUEsUUFDQU0sWUFBVyxvQkFBSUMsS0FBSyxHQUFFQyxZQUFZO0FBQUEsTUFDcEM7QUFDQSxZQUFNQyxRQUFRLE1BQU0vQyxZQUFZd0MsWUFBWTtBQUU1Q3ZCLGVBQVMsZ0JBQWdCOEIsTUFBTUMsRUFBRSxFQUFFO0FBQUEsSUFDckMsU0FBU0MsS0FBSztBQUNabkMsZUFBU21DLEtBQUtDLFdBQVcsa0JBQWtCO0FBQUEsSUFDN0MsVUFBQztBQUNDdEMsaUJBQVcsS0FBSztBQUFBLElBQ2xCO0FBQUEsRUFDRjtBQUVBLGlCQUFldUMsZ0JBQWdCO0FBQzdCdkMsZUFBVyxJQUFJO0FBQ2ZFLGFBQVMsRUFBRTtBQUNYLFFBQUk7QUFDRixZQUFNc0MsT0FBUXJDLFlBQVlRLE9BQU9SLFNBQVNzQyxjQUFjLEtBQU07QUFDOUQsWUFBTUMsV0FBV0YsT0FBTyxJQUFJLEVBQUVoQyxlQUFlZ0MsTUFBTWxCLFFBQVEsQ0FBQyxJQUFJO0FBQ2hFLFlBQU1xQixZQUFheEMsWUFBWUEsU0FBU3lDLHFCQUFzQixNQUFNWCxLQUFLWSxJQUFJLENBQUMsSUFBSXBDLEtBQUtxQyxPQUFPLEVBQUVDLFNBQVMsRUFBRSxFQUFFQyxNQUFNLEdBQUUsQ0FBQyxDQUFDO0FBQ3ZILFlBQU1DLFVBQVUsTUFBTTVELGdCQUFnQjtBQUFBLFFBQ3BDSztBQUFBQSxRQUNBQyxPQUFPYTtBQUFBQSxRQUNQa0M7QUFBQUEsUUFDQUM7QUFBQUEsUUFDQWQsZUFBZTtBQUFBLE1BQ2pCLENBQUM7QUFDRHhCLGVBQVMsZUFBZTRDLFFBQVFiLEVBQUUsRUFBRTtBQUFBLElBQ3RDLFNBQVNDLEtBQUs7QUFDWm5DLGVBQVNtQyxLQUFLQyxXQUFXLG1CQUFtQjtBQUFBLElBQzlDLFVBQUM7QUFDQ3RDLGlCQUFXLEtBQUs7QUFBQSxJQUNsQjtBQUFBLEVBQ0Y7QUFFQSxRQUFNLEVBQUUwQixRQUFRTixJQUFJSyxJQUFJUCxNQUFNLElBQUlMLFlBQVk7QUFDOUMsUUFBTXFDLFNBQVMvQyxZQUFZQSxTQUFTZ0QsV0FBV2hELFNBQVNnRCxXQUFXLGlFQUFpRTNCLG1CQUFtQkUsTUFBTSxDQUFDO0FBRTlKLFNBQ0UsdUJBQUMsU0FBSSxPQUFPLEVBQUUwQixRQUFRLGtCQUFrQkMsU0FBUyxJQUFJQyxjQUFjLEVBQUUsR0FDbkU7QUFBQSwyQkFBQyxRQUFHLHVCQUFKO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBVztBQUFBLElBRVgsdUJBQUMsU0FBSSxPQUFPLEVBQUVDLGNBQWMsRUFBRSxHQUM1QixpQ0FBQyxXQUNDO0FBQUEsNkJBQUMsV0FBTSxNQUFLLFNBQVEsTUFBSyxVQUFTLE9BQU0sT0FBTSxTQUFTMUQsV0FBVyxPQUFPLFVBQVUsTUFBTUMsVUFBVSxLQUFLLEtBQXhHO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFBMEc7QUFBQTtBQUFBLFNBRDVHO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FHQSxLQUpGO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FLQTtBQUFBLElBRUEsdUJBQUMsU0FBSSxPQUFPLEVBQUV5RCxjQUFjLEdBQUcsR0FDN0IsaUNBQUMsV0FDQztBQUFBLDZCQUFDLFdBQU0sTUFBSyxTQUFRLE1BQUssVUFBUyxPQUFNLE1BQUssU0FBUzFELFdBQVcsTUFBTSxVQUFVLE1BQU1DLFVBQVUsSUFBSSxLQUFyRztBQUFBO0FBQUE7QUFBQTtBQUFBLGFBQXVHO0FBQUE7QUFBQSxTQUR6RztBQUFBO0FBQUE7QUFBQTtBQUFBLFdBR0EsS0FKRjtBQUFBO0FBQUE7QUFBQTtBQUFBLFdBS0E7QUFBQSxJQUVBLHVCQUFDLFNBQUksT0FBTyxFQUFFeUQsY0FBYyxHQUFHLEdBQzdCO0FBQUEsNkJBQUMsWUFBTyx1QkFBUjtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBQWU7QUFBQSxNQUFTO0FBQUEsTUFBRy9DO0FBQUFBLFNBRDdCO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FFQTtBQUFBLElBRUNQLFNBQVMsdUJBQUMsU0FBSSxPQUFPLEVBQUV1RCxPQUFPLFdBQVdELGNBQWMsRUFBRSxHQUFJdEQsbUJBQXBEO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBMEQ7QUFBQSxJQUVuRUosV0FBVyxTQUNWLHVCQUFDLFNBQUksT0FBTyxFQUFFMEQsY0FBYyxHQUFHLEdBQzdCO0FBQUEsNkJBQUMsU0FBSSxPQUFPLEVBQUVBLGNBQWMsRUFBRSxHQUMzQnBELHFCQUNDLG1DQUNFO0FBQUEsK0JBQUMsU0FBSTtBQUFBLGlDQUFDLFlBQU8sd0JBQVI7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFBZ0I7QUFBQSxVQUFTO0FBQUEsVUFBRWlCLE1BQU07QUFBQSxhQUF0QztBQUFBO0FBQUE7QUFBQTtBQUFBLGVBQXVEO0FBQUEsUUFDdkQsdUJBQUMsU0FBSTtBQUFBLGlDQUFDLFlBQU8sK0JBQVI7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFBdUI7QUFBQSxVQUFTO0FBQUEsVUFBRUssTUFBTTtBQUFBLGFBQTdDO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFBOEQ7QUFBQSxRQUM5RCx1QkFBQyxTQUFJO0FBQUEsaUNBQUMsWUFBTyw4QkFBUjtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQUFzQjtBQUFBLFVBQVM7QUFBQSxVQUFFUCxTQUFTO0FBQUEsYUFBL0M7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQUFnRTtBQUFBLFdBSGxFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFJQSxJQUVBLHVCQUFDLFNBQUkscUNBQUw7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQUEwQixLQVI5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBVUE7QUFBQSxNQUVBLHVCQUFDLFNBQUksT0FBTyxFQUFFcUMsY0FBYyxFQUFFLEdBQzVCLGlDQUFDLFNBQUksS0FBS0wsUUFBUSxLQUFJLFVBQVMsT0FBTyxFQUFFTyxPQUFPLEtBQUtDLFFBQVEsSUFBSSxLQUFoRTtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBQWtFLEtBRHBFO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFFQTtBQUFBLE1BRUEsdUJBQUMsU0FBSSxPQUFPLEVBQUVILGNBQWMsRUFBRSxHQUM1QjtBQUFBLCtCQUFDLFlBQU8sVUFBVXhELFNBQVMsU0FBUzRCLGdCQUFnQixPQUFPLEVBQUUwQixTQUFTLFdBQVcsR0FDOUV0RCxvQkFBVSxrQkFBa0IsaUNBRC9CO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFFQTtBQUFBLFFBQ0E7QUFBQSxVQUFDO0FBQUE7QUFBQSxZQUNDLFNBQVMsTUFBTTtBQUNiLGtCQUFJO0FBQ0Y0RCwwQkFBVUMsVUFBVUMsVUFBVW5DLE1BQU07QUFDcENvQyxzQkFBTSxnQkFBZ0I7QUFBQSxjQUN4QixRQUFRO0FBQ05BLHNCQUFNLHdCQUF3QjtBQUFBLGNBQ2hDO0FBQUEsWUFDRjtBQUFBLFlBQ0EsT0FBTyxFQUFFQyxZQUFZLEdBQUdWLFNBQVMsV0FBVztBQUFBLFlBQUU7QUFBQTtBQUFBLFVBVGhEO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxRQVlBO0FBQUEsV0FoQkY7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQWlCQTtBQUFBLFNBbENGO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FtQ0E7QUFBQSxJQUdEeEQsV0FBVyxRQUNWLG1DQUNFLGlDQUFDLFNBQ0M7QUFBQSw2QkFBQyxTQUFJLE9BQU8sRUFBRTBELGNBQWMsRUFBRSxHQUM1QjtBQUFBLCtCQUFDLFlBQU8sZ0RBQVI7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQUF3QztBQUFBLFFBQVM7QUFBQSxRQUFFcEQsV0FBV0EsU0FBU3NDLGlCQUFpQjtBQUFBLFdBRDFGO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFFQTtBQUFBLE1BQ0EsdUJBQUMsU0FBSSxPQUFPLEVBQUVjLGNBQWMsRUFBRSxHQUM1QixpQ0FBQyxZQUFPLFVBQVV4RCxTQUFTLFNBQVN3QyxlQUFlLE9BQU8sRUFBRWMsU0FBUyxXQUFXLEdBQzdFdEQsb0JBQVUsa0JBQWtCLHVCQUQvQjtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBRUEsS0FIRjtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBSUE7QUFBQSxTQVJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FTQSxLQVZGO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FXQTtBQUFBLE9BMUVKO0FBQUE7QUFBQTtBQUFBO0FBQUEsU0E0RUE7QUFFSjtBQUFDSCxHQTFKdUJILGdCQUFjO0FBQUEsVUFLbkJELFdBQVc7QUFBQTtBQUFBd0UsS0FMTnZFO0FBQWMsSUFBQXVFO0FBQUFDLGFBQUFELElBQUEiLCJuYW1lcyI6WyJSZWFjdCIsInVzZUVmZmVjdCIsInVzZVN0YXRlIiwiY3JlYXRlT3JkZXIiLCJjcmVhdGVQaUludm9pY2UiLCJnZXRTZXR0aW5ncyIsImZldGNoU2V0dGluZ3MiLCJ1c2VOYXZpZ2F0ZSIsIlBheW1lbnRPcHRpb25zIiwiaXRlbXMiLCJ0b3RhbCIsIl9zIiwibWV0aG9kIiwic2V0TWV0aG9kIiwibG9hZGluZyIsInNldExvYWRpbmciLCJlcnJvciIsInNldEVycm9yIiwic2V0dGluZ3MiLCJzZXRTZXR0aW5ncyIsIm5hdmlnYXRlIiwidGhlbiIsImNhdGNoIiwidG90YWxSb3VuZGVkIiwiTWF0aCIsInJvdW5kIiwiTnVtYmVyIiwiRVBTSUxPTiIsImJ1aWxkVXBpVXJpIiwidnBhIiwidXBpVnBhIiwibmFtZSIsInVwaU5hbWUiLCJwaG9uZSIsInVwaVBob25lIiwicGEiLCJhbSIsInRvRml4ZWQiLCJ0biIsImVuY29kZVVSSUNvbXBvbmVudCIsInBuIiwidXBpVXJpIiwiaGFuZGxlVXBpU3RhcnQiLCJvcmRlclBheWxvYWQiLCJwYXltZW50TWV0aG9kIiwicGFpZCIsInN0YXR1cyIsImNyZWF0ZWRBdCIsIkRhdGUiLCJ0b0lTT1N0cmluZyIsIm9yZGVyIiwiaWQiLCJlcnIiLCJtZXNzYWdlIiwiaGFuZGxlUGlTdGFydCIsInJhdGUiLCJwaVJhdGVJTlJQZXJQaSIsInBpQW1vdW50IiwicGlBZGRyZXNzIiwicGlSZWNlaXZlckFkZHJlc3MiLCJub3ciLCJyYW5kb20iLCJ0b1N0cmluZyIsInNsaWNlIiwiaW52b2ljZSIsInFyRGF0YSIsInVwaVFyVXJsIiwiYm9yZGVyIiwicGFkZGluZyIsImJvcmRlclJhZGl1cyIsIm1hcmdpbkJvdHRvbSIsImNvbG9yIiwid2lkdGgiLCJoZWlnaHQiLCJuYXZpZ2F0b3IiLCJjbGlwYm9hcmQiLCJ3cml0ZVRleHQiLCJhbGVydCIsIm1hcmdpbkxlZnQiLCJfYyIsIiRSZWZyZXNoUmVnJCJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJQYXltZW50T3B0aW9ucy5qc3giXSwic291cmNlc0NvbnRlbnQiOlsi77u/aW1wb3J0IFJlYWN0LCB7IHVzZUVmZmVjdCwgdXNlU3RhdGUgfSBmcm9tIFwicmVhY3RcIjtcbmltcG9ydCB7IGNyZWF0ZU9yZGVyLCBjcmVhdGVQaUludm9pY2UgfSBmcm9tIFwiLi4vYXBpL3BheW1lbnRzXCI7XG5pbXBvcnQgeyBnZXRTZXR0aW5ncyBhcyBmZXRjaFNldHRpbmdzIH0gZnJvbSBcIi4uL2FwaS9hZG1pblNldHRpbmdzXCI7XG5pbXBvcnQgeyB1c2VOYXZpZ2F0ZSB9IGZyb20gXCJyZWFjdC1yb3V0ZXItZG9tXCI7XG5cbi8qKlxuICogUGF5bWVudE9wdGlvbnMgKFVQSSArIFBJKVxuICpcbiAqIFByb3BzOlxuICogIC0gaXRlbXM6IGFycmF5XG4gKiAgLSB0b3RhbDogbnVtYmVyXG4gKi9cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIFBheW1lbnRPcHRpb25zKHsgaXRlbXMgPSBbXSwgdG90YWwgPSAwIH0pIHtcbiAgY29uc3QgW21ldGhvZCwgc2V0TWV0aG9kXSA9IHVzZVN0YXRlKFwidXBpXCIpO1xuICBjb25zdCBbbG9hZGluZywgc2V0TG9hZGluZ10gPSB1c2VTdGF0ZShmYWxzZSk7XG4gIGNvbnN0IFtlcnJvciwgc2V0RXJyb3JdID0gdXNlU3RhdGUoXCJcIik7XG4gIGNvbnN0IFtzZXR0aW5ncywgc2V0U2V0dGluZ3NdID0gdXNlU3RhdGUobnVsbCk7XG4gIGNvbnN0IG5hdmlnYXRlID0gdXNlTmF2aWdhdGUoKTtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIGZldGNoU2V0dGluZ3MoKS50aGVuKHNldFNldHRpbmdzKS5jYXRjaCgoKSA9PiBzZXRTZXR0aW5ncyhudWxsKSk7XG4gIH0sIFtdKTtcblxuICBjb25zdCB0b3RhbFJvdW5kZWQgPSBNYXRoLnJvdW5kKCh0b3RhbCArIE51bWJlci5FUFNJTE9OKSAqIDEwMCkgLyAxMDA7XG5cbiAgZnVuY3Rpb24gYnVpbGRVcGlVcmkoKSB7XG4gICAgY29uc3QgdnBhID0gKHNldHRpbmdzICYmIHNldHRpbmdzLnVwaVZwYSkgfHwgXCJcIjtcbiAgICBjb25zdCBuYW1lID0gKHNldHRpbmdzICYmIHNldHRpbmdzLnVwaU5hbWUpIHx8IFwiXCI7XG4gICAgY29uc3QgcGhvbmUgPSAoc2V0dGluZ3MgJiYgc2V0dGluZ3MudXBpUGhvbmUpIHx8IFwiXCI7XG4gICAgY29uc3QgcGEgPSB2cGEgfHwgXCJcIjtcbiAgICBjb25zdCBhbSA9IHRvdGFsUm91bmRlZC50b0ZpeGVkKDIpO1xuICAgIGNvbnN0IHRuID0gZW5jb2RlVVJJQ29tcG9uZW50KFwiT3JkZXIgcGF5bWVudFwiKTtcbiAgICBjb25zdCBwbiA9IGVuY29kZVVSSUNvbXBvbmVudChuYW1lKTtcbiAgICBjb25zdCB1cGlVcmkgPSBgdXBpOi8vcGF5P3BhPSR7ZW5jb2RlVVJJQ29tcG9uZW50KHBhKX0mcG49JHtwbn0mYW09JHtlbmNvZGVVUklDb21wb25lbnQoYW0pfSZjdT1JTlImdG49JHt0bn1gO1xuICAgIHJldHVybiB7IHVwaVVyaSwgcGEsIHBuLCBwaG9uZSB9O1xuICB9XG5cbiAgYXN5bmMgZnVuY3Rpb24gaGFuZGxlVXBpU3RhcnQoKSB7XG4gICAgc2V0TG9hZGluZyh0cnVlKTtcbiAgICBzZXRFcnJvcihcIlwiKTtcbiAgICB0cnkge1xuICAgICAgY29uc3QgeyB1cGlVcmksIHBhIH0gPSBidWlsZFVwaVVyaSgpO1xuICAgICAgLy8gQ3JlYXRlIGEgcGVuZGluZyBvcmRlciAoYWRtaW4gd2lsbCB2ZXJpZnkgVVRSL3NjcmVlbnNob3RzKVxuICAgICAgY29uc3Qgb3JkZXJQYXlsb2FkID0ge1xuICAgICAgICBpdGVtcyxcbiAgICAgICAgdG90YWw6IHRvdGFsUm91bmRlZCxcbiAgICAgICAgcGF5bWVudE1ldGhvZDogXCJ1cGlcIixcbiAgICAgICAgcGFpZDogZmFsc2UsXG4gICAgICAgIHN0YXR1czogXCJwZW5kaW5nXCIsXG4gICAgICAgIHVwaVVyaSxcbiAgICAgICAgY3JlYXRlZEF0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCksXG4gICAgICB9O1xuICAgICAgY29uc3Qgb3JkZXIgPSBhd2FpdCBjcmVhdGVPcmRlcihvcmRlclBheWxvYWQpO1xuICAgICAgLy8gTmF2aWdhdGUgdG8gdGhlIFVQSSBjb25maXJtYXRpb24gcGFnZSBmb3IgdGhlIGNyZWF0ZWQgb3JkZXJcbiAgICAgIG5hdmlnYXRlKGAvY29uZmlybS91cGkvJHtvcmRlci5pZH1gKTtcbiAgICB9IGNhdGNoIChlcnIpIHtcbiAgICAgIHNldEVycm9yKGVycj8ubWVzc2FnZSB8fCBcIlVQSSBzdGFydCBmYWlsZWRcIik7XG4gICAgfSBmaW5hbGx5IHtcbiAgICAgIHNldExvYWRpbmcoZmFsc2UpO1xuICAgIH1cbiAgfVxuXG4gIGFzeW5jIGZ1bmN0aW9uIGhhbmRsZVBpU3RhcnQoKSB7XG4gICAgc2V0TG9hZGluZyh0cnVlKTtcbiAgICBzZXRFcnJvcihcIlwiKTtcbiAgICB0cnkge1xuICAgICAgY29uc3QgcmF0ZSA9IChzZXR0aW5ncyAmJiBOdW1iZXIoc2V0dGluZ3MucGlSYXRlSU5SUGVyUGkpKSB8fCAwO1xuICAgICAgY29uc3QgcGlBbW91bnQgPSByYXRlID4gMCA/ICsodG90YWxSb3VuZGVkIC8gcmF0ZSkudG9GaXhlZCg2KSA6IDA7XG4gICAgICBjb25zdCBwaUFkZHJlc3MgPSAoc2V0dGluZ3MgJiYgc2V0dGluZ3MucGlSZWNlaXZlckFkZHJlc3MpIHx8IGBwaToke0RhdGUubm93KCl9LSR7TWF0aC5yYW5kb20oKS50b1N0cmluZygzNikuc2xpY2UoMiw4KX1gO1xuICAgICAgY29uc3QgaW52b2ljZSA9IGF3YWl0IGNyZWF0ZVBpSW52b2ljZSh7XG4gICAgICAgIGl0ZW1zLFxuICAgICAgICB0b3RhbDogdG90YWxSb3VuZGVkLFxuICAgICAgICBwaUFtb3VudCxcbiAgICAgICAgcGlBZGRyZXNzLFxuICAgICAgICBwYXltZW50TWV0aG9kOiBcInBpXCIsXG4gICAgICB9KTtcbiAgICAgIG5hdmlnYXRlKGAvY29uZmlybS9waS8ke2ludm9pY2UuaWR9YCk7XG4gICAgfSBjYXRjaCAoZXJyKSB7XG4gICAgICBzZXRFcnJvcihlcnI/Lm1lc3NhZ2UgfHwgXCJQSSBpbnZvaWNlIGZhaWxlZFwiKTtcbiAgICB9IGZpbmFsbHkge1xuICAgICAgc2V0TG9hZGluZyhmYWxzZSk7XG4gICAgfVxuICB9XG5cbiAgY29uc3QgeyB1cGlVcmksIHBhLCBwbiwgcGhvbmUgfSA9IGJ1aWxkVXBpVXJpKCk7XG4gIGNvbnN0IHFyRGF0YSA9IHNldHRpbmdzICYmIHNldHRpbmdzLnVwaVFyVXJsID8gc2V0dGluZ3MudXBpUXJVcmwgOiBgaHR0cHM6Ly9hcGkucXJzZXJ2ZXIuY29tL3YxL2NyZWF0ZS1xci1jb2RlLz9zaXplPTIwMHgyMDAmZGF0YT0ke2VuY29kZVVSSUNvbXBvbmVudCh1cGlVcmkpfWA7XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2IHN0eWxlPXt7IGJvcmRlcjogXCIxcHggc29saWQgI2RkZFwiLCBwYWRkaW5nOiAxNiwgYm9yZGVyUmFkaXVzOiA4IH19PlxuICAgICAgPGgzPlBheW1lbnQ8L2gzPlxuXG4gICAgICA8ZGl2IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogOCB9fT5cbiAgICAgICAgPGxhYmVsPlxuICAgICAgICAgIDxpbnB1dCB0eXBlPVwicmFkaW9cIiBuYW1lPVwibWV0aG9kXCIgdmFsdWU9XCJ1cGlcIiBjaGVja2VkPXttZXRob2QgPT09IFwidXBpXCJ9IG9uQ2hhbmdlPXsoKSA9PiBzZXRNZXRob2QoXCJ1cGlcIil9IC8+XG4gICAgICAgICAgVVBJXG4gICAgICAgIDwvbGFiZWw+XG4gICAgICA8L2Rpdj5cblxuICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDEyIH19PlxuICAgICAgICA8bGFiZWw+XG4gICAgICAgICAgPGlucHV0IHR5cGU9XCJyYWRpb1wiIG5hbWU9XCJtZXRob2RcIiB2YWx1ZT1cInBpXCIgY2hlY2tlZD17bWV0aG9kID09PSBcInBpXCJ9IG9uQ2hhbmdlPXsoKSA9PiBzZXRNZXRob2QoXCJwaVwiKX0gLz5cbiAgICAgICAgICBQSSBOZXR3b3JrIChtYW51YWwpXG4gICAgICAgIDwvbGFiZWw+XG4gICAgICA8L2Rpdj5cblxuICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDEyIH19PlxuICAgICAgICA8c3Ryb25nPlRvdGFsOiA8L3N0cm9uZz4g4oK5e3RvdGFsUm91bmRlZH1cbiAgICAgIDwvZGl2PlxuXG4gICAgICB7ZXJyb3IgJiYgPGRpdiBzdHlsZT17eyBjb2xvcjogXCJjcmltc29uXCIsIG1hcmdpbkJvdHRvbTogOCB9fT57ZXJyb3J9PC9kaXY+fVxuXG4gICAgICB7bWV0aG9kID09PSBcInVwaVwiICYmIChcbiAgICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDEyIH19PlxuICAgICAgICAgIDxkaXYgc3R5bGU9e3sgbWFyZ2luQm90dG9tOiA4IH19PlxuICAgICAgICAgICAge3NldHRpbmdzID8gKFxuICAgICAgICAgICAgICA8PlxuICAgICAgICAgICAgICAgIDxkaXY+PHN0cm9uZz5VUEkgVlBBOjwvc3Ryb25nPiB7cGEgfHwgXCJOb3QgY29uZmlndXJlZFwifTwvZGl2PlxuICAgICAgICAgICAgICAgIDxkaXY+PHN0cm9uZz5SZWNpcGllbnQgbmFtZTo8L3N0cm9uZz4ge3BuIHx8IFwiTm90IGNvbmZpZ3VyZWRcIn08L2Rpdj5cbiAgICAgICAgICAgICAgICA8ZGl2PjxzdHJvbmc+UGhvbmUgKGFkbWluKTo8L3N0cm9uZz4ge3Bob25lIHx8IFwiTm90IGNvbmZpZ3VyZWRcIn08L2Rpdj5cbiAgICAgICAgICAgICAgPC8+XG4gICAgICAgICAgICApIDogKFxuICAgICAgICAgICAgICA8ZGl2PkxvYWRpbmcgVVBJIHNldHRpbmdz4oCmPC9kaXY+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDggfX0+XG4gICAgICAgICAgICA8aW1nIHNyYz17cXJEYXRhfSBhbHQ9XCJVUEkgUVJcIiBzdHlsZT17eyB3aWR0aDogMjAwLCBoZWlnaHQ6IDIwMCB9fSAvPlxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDggfX0+XG4gICAgICAgICAgICA8YnV0dG9uIGRpc2FibGVkPXtsb2FkaW5nfSBvbkNsaWNrPXtoYW5kbGVVcGlTdGFydH0gc3R5bGU9e3sgcGFkZGluZzogXCI4cHggMTJweFwiIH19PlxuICAgICAgICAgICAgICB7bG9hZGluZyA/IFwiUHJvY2Vzc2luZy4uLlwiIDogXCJQcm9jZWVkIHRvIFVQSSBjb25maXJtYXRpb25cIn1cbiAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiB7XG4gICAgICAgICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgICAgICAgIG5hdmlnYXRvci5jbGlwYm9hcmQud3JpdGVUZXh0KHVwaVVyaSk7XG4gICAgICAgICAgICAgICAgICBhbGVydChcIlVQSSBVUkkgY29waWVkXCIpO1xuICAgICAgICAgICAgICAgIH0gY2F0Y2gge1xuICAgICAgICAgICAgICAgICAgYWxlcnQoXCJVbmFibGUgdG8gY29weSBVUEkgVVJJXCIpO1xuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgc3R5bGU9e3sgbWFyZ2luTGVmdDogOCwgcGFkZGluZzogXCI4cHggMTJweFwiIH19XG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIENvcHkgVVBJIFVSSVxuICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgKX1cblxuICAgICAge21ldGhvZCA9PT0gXCJwaVwiICYmIChcbiAgICAgICAgPD5cbiAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDggfX0+XG4gICAgICAgICAgICAgIDxzdHJvbmc+UEkgY29udmVyc2lvbiByYXRlIChJTlIgcGVyIFBJKTo8L3N0cm9uZz4ge3NldHRpbmdzID8gc2V0dGluZ3MucGlSYXRlSU5SUGVyUGkgOiBcImxvYWRpbmdcIn1cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDggfX0+XG4gICAgICAgICAgICAgIDxidXR0b24gZGlzYWJsZWQ9e2xvYWRpbmd9IG9uQ2xpY2s9e2hhbmRsZVBpU3RhcnR9IHN0eWxlPXt7IHBhZGRpbmc6IFwiOHB4IDEycHhcIiB9fT5cbiAgICAgICAgICAgICAgICB7bG9hZGluZyA/IFwiUHJvY2Vzc2luZy4uLlwiIDogXCJDcmVhdGUgUEkgaW52b2ljZVwifVxuICAgICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8Lz5cbiAgICAgICl9XG4gICAgPC9kaXY+XG4gICk7XG59XHJcbiJdLCJmaWxlIjoiQzovVXNlcnMvQVNVUy9EZXNrdG9wL1JSbmFnYXItd29yay9mcm9udGVuZC9zcmMvY29tcG9uZW50cy9QYXltZW50T3B0aW9ucy5qc3gifQ==

@@ -1,0 +1,229 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/QuickCartSidebar.jsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=adceca26"; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+var _s = $RefreshSig$();
+import __vite__cjsImport1_react from "/node_modules/.vite/deps/react.js?v=adceca26"; const React = __vite__cjsImport1_react.__esModule ? __vite__cjsImport1_react.default : __vite__cjsImport1_react; const useState = __vite__cjsImport1_react["useState"];
+import { useNotifications } from "/src/contexts/NotificationContext.jsx?t=1764592849034";
+import * as TestNotif from "/src/contexts/NotificationContext.jsx?t=1764592849034";
+console.log("Loaded NotificationContext exports:", TestNotif);
+export default function QuickCartSidebar({ isOpen, onClose, cartItems = [], onCheckout }) {
+  _s();
+  const { notify } = useNotifications();
+  const handleCheckout = () => {
+    notify({
+      type: "success",
+      title: "Checkout Successful",
+      body: `You purchased ${cartItems.length} items.`,
+      ttl: 4e3
+    });
+    if (onCheckout) onCheckout();
+  };
+  return /* @__PURE__ */ jsxDEV(
+    "div",
+    {
+      style: {
+        position: "fixed",
+        top: 0,
+        right: isOpen ? 0 : "-350px",
+        width: "350px",
+        height: "100vh",
+        background: "#fff",
+        boxShadow: "0 0 20px rgba(0,0,0,0.15)",
+        transition: "right 0.3s ease",
+        zIndex: 3e3,
+        display: "flex",
+        flexDirection: "column"
+      },
+      children: [
+        /* @__PURE__ */ jsxDEV(
+          "div",
+          {
+            style: {
+              padding: "16px",
+              fontSize: "18px",
+              fontWeight: "bold",
+              borderBottom: "1px solid #eee",
+              display: "flex",
+              justifyContent: "space-between"
+            },
+            children: [
+              /* @__PURE__ */ jsxDEV("span", { children: "Quick Cart" }, void 0, false, {
+                fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+                lineNumber: 49,
+                columnNumber: 9
+              }, this),
+              /* @__PURE__ */ jsxDEV(
+                "button",
+                {
+                  onClick: onClose,
+                  style: {
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "20px"
+                  },
+                  children: "×"
+                },
+                void 0,
+                false,
+                {
+                  fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+                  lineNumber: 50,
+                  columnNumber: 9
+                },
+                this
+              )
+            ]
+          },
+          void 0,
+          true,
+          {
+            fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+            lineNumber: 39,
+            columnNumber: 7
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDEV("div", { style: { flex: 1, overflowY: "auto", padding: "16px" }, children: cartItems.length === 0 ? /* @__PURE__ */ jsxDEV("div", { style: { textAlign: "center", marginTop: "40px", color: "#777" }, children: "Cart is empty" }, void 0, false, {
+          fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+          lineNumber: 66,
+          columnNumber: 9
+        }, this) : cartItems.map(
+          (item) => /* @__PURE__ */ jsxDEV(
+            "div",
+            {
+              style: {
+                padding: "12px",
+                borderBottom: "1px solid #f0f0f0",
+                display: "flex",
+                justifyContent: "space-between"
+              },
+              children: [
+                /* @__PURE__ */ jsxDEV("div", { children: [
+                  /* @__PURE__ */ jsxDEV("strong", { children: item.name }, void 0, false, {
+                    fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+                    lineNumber: 81,
+                    columnNumber: 17
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("div", { style: { fontSize: "13px", color: "#555" }, children: [
+                    "₹",
+                    item.price
+                  ] }, void 0, true, {
+                    fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+                    lineNumber: 82,
+                    columnNumber: 17
+                  }, this)
+                ] }, void 0, true, {
+                  fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+                  lineNumber: 80,
+                  columnNumber: 15
+                }, this),
+                /* @__PURE__ */ jsxDEV("div", { children: [
+                  "x",
+                  item.qty
+                ] }, void 0, true, {
+                  fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+                  lineNumber: 84,
+                  columnNumber: 15
+                }, this)
+              ]
+            },
+            item.id,
+            true,
+            {
+              fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+              lineNumber: 71,
+              columnNumber: 9
+            },
+            this
+          )
+        ) }, void 0, false, {
+          fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+          lineNumber: 64,
+          columnNumber: 7
+        }, this),
+        cartItems.length > 0 && /* @__PURE__ */ jsxDEV(
+          "div",
+          {
+            style: {
+              padding: "16px",
+              borderTop: "1px solid #eee",
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px"
+            },
+            children: /* @__PURE__ */ jsxDEV(
+              "button",
+              {
+                onClick: handleCheckout,
+                style: {
+                  width: "100%",
+                  padding: "12px",
+                  background: "#2563eb",
+                  color: "#fff",
+                  borderRadius: "6px",
+                  border: "none",
+                  cursor: "pointer"
+                },
+                children: "Checkout"
+              },
+              void 0,
+              false,
+              {
+                fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+                lineNumber: 101,
+                columnNumber: 11
+              },
+              this
+            )
+          },
+          void 0,
+          false,
+          {
+            fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+            lineNumber: 92,
+            columnNumber: 7
+          },
+          this
+        )
+      ]
+    },
+    void 0,
+    true,
+    {
+      fileName: "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx",
+      lineNumber: 23,
+      columnNumber: 5
+    },
+    this
+  );
+}
+_s(QuickCartSidebar, "/SuoV62/C8AJANY2Iz49+YYju20=", false, function() {
+  return [useNotifications];
+});
+_c = QuickCartSidebar;
+var _c;
+$RefreshReg$(_c, "QuickCartSidebar");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) {
+  return RefreshRuntime.register(type, "C:/Users/ASUS/Desktop/RRnagar-work/frontend/src/components/QuickCartSidebar.jsx " + id);
+}
+function $RefreshSig$() {
+  return RefreshRuntime.createSignatureFunctionForTransform();
+}
+
+//# sourceMappingURL=data:application/json;base64,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QSxZQVpYSCxLQUFLSTtBQUFBQSxZQURaO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsVUFjQTtBQUFBLFFBQ0QsS0F0Qkw7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQXdCQTtBQUFBLFFBR0N0QyxVQUFVUSxTQUFTLEtBQ2xCO0FBQUEsVUFBQztBQUFBO0FBQUEsWUFDQyxPQUFPO0FBQUEsY0FDTGEsU0FBUztBQUFBLGNBQ1RrQixXQUFXO0FBQUEsY0FDWHBCLFNBQVM7QUFBQSxjQUNUQyxlQUFlO0FBQUEsY0FDZm9CLEtBQUs7QUFBQSxZQUNQO0FBQUEsWUFFQTtBQUFBLGNBQUM7QUFBQTtBQUFBLGdCQUNDLFNBQVNwQztBQUFBQSxnQkFDVCxPQUFPO0FBQUEsa0JBQ0xTLE9BQU87QUFBQSxrQkFDUFEsU0FBUztBQUFBLGtCQUNUTixZQUFZO0FBQUEsa0JBQ1ppQixPQUFPO0FBQUEsa0JBQ1BTLGNBQWM7QUFBQSxrQkFDZGYsUUFBUTtBQUFBLGtCQUNSQyxRQUFRO0FBQUEsZ0JBQ1Y7QUFBQSxnQkFBRTtBQUFBO0FBQUEsY0FWSjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsWUFhQTtBQUFBO0FBQUEsVUF0QkY7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLFFBdUJBO0FBQUE7QUFBQTtBQUFBLElBNUZKO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxFQThGQTtBQUVKO0FBQUN6QixHQS9HdUJMLGtCQUFnQjtBQUFBLFVBQ25CSixnQkFBZ0I7QUFBQTtBQUFBaUQsS0FEYjdDO0FBQWdCLElBQUE2QztBQUFBQyxhQUFBRCxJQUFBIiwibmFtZXMiOlsiUmVhY3QiLCJ1c2VTdGF0ZSIsInVzZU5vdGlmaWNhdGlvbnMiLCJUZXN0Tm90aWYiLCJjb25zb2xlIiwibG9nIiwiUXVpY2tDYXJ0U2lkZWJhciIsImlzT3BlbiIsIm9uQ2xvc2UiLCJjYXJ0SXRlbXMiLCJvbkNoZWNrb3V0IiwiX3MiLCJub3RpZnkiLCJoYW5kbGVDaGVja291dCIsInR5cGUiLCJ0aXRsZSIsImJvZHkiLCJsZW5ndGgiLCJ0dGwiLCJwb3NpdGlvbiIsInRvcCIsInJpZ2h0Iiwid2lkdGgiLCJoZWlnaHQiLCJiYWNrZ3JvdW5kIiwiYm94U2hhZG93IiwidHJhbnNpdGlvbiIsInpJbmRleCIsImRpc3BsYXkiLCJmbGV4RGlyZWN0aW9uIiwicGFkZGluZyIsImZvbnRTaXplIiwiZm9udFdlaWdodCIsImJvcmRlckJvdHRvbSIsImp1c3RpZnlDb250ZW50IiwiYm9yZGVyIiwiY3Vyc29yIiwiZmxleCIsIm92ZXJmbG93WSIsInRleHRBbGlnbiIsIm1hcmdpblRvcCIsImNvbG9yIiwibWFwIiwiaXRlbSIsIm5hbWUiLCJwcmljZSIsInF0eSIsImlkIiwiYm9yZGVyVG9wIiwiZ2FwIiwiYm9yZGVyUmFkaXVzIiwiX2MiLCIkUmVmcmVzaFJlZyQiXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiUXVpY2tDYXJ0U2lkZWJhci5qc3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlIH0gZnJvbSBcInJlYWN0XCI7XHJcbmltcG9ydCB7IHVzZU5vdGlmaWNhdGlvbnMgfSBmcm9tIFwiLi4vY29udGV4dHMvTm90aWZpY2F0aW9uQ29udGV4dFwiOyAgLy8g4pyFIENvcnJlY3QgaW1wb3J0XHJcblxyXG4vLyBEaWFnbm9zdGljIGltcG9ydCB0byB2ZXJpZnkgd2hhdCBWaXRlIGlzIGxvYWRpbmdcclxuaW1wb3J0ICogYXMgVGVzdE5vdGlmIGZyb20gXCIuLi9jb250ZXh0cy9Ob3RpZmljYXRpb25Db250ZXh0XCI7XHJcbmNvbnNvbGUubG9nKFwiTG9hZGVkIE5vdGlmaWNhdGlvbkNvbnRleHQgZXhwb3J0czpcIiwgVGVzdE5vdGlmKTtcclxuXHJcbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIFF1aWNrQ2FydFNpZGViYXIoeyBpc09wZW4sIG9uQ2xvc2UsIGNhcnRJdGVtcyA9IFtdLCBvbkNoZWNrb3V0IH0pIHtcclxuICBjb25zdCB7IG5vdGlmeSB9ID0gdXNlTm90aWZpY2F0aW9ucygpO1xyXG5cclxuICBjb25zdCBoYW5kbGVDaGVja291dCA9ICgpID0+IHtcclxuICAgIG5vdGlmeSh7XHJcbiAgICAgIHR5cGU6IFwic3VjY2Vzc1wiLFxyXG4gICAgICB0aXRsZTogXCJDaGVja291dCBTdWNjZXNzZnVsXCIsXHJcbiAgICAgIGJvZHk6IGBZb3UgcHVyY2hhc2VkICR7Y2FydEl0ZW1zLmxlbmd0aH0gaXRlbXMuYCxcclxuICAgICAgdHRsOiA0MDAwLFxyXG4gICAgfSk7XHJcblxyXG4gICAgaWYgKG9uQ2hlY2tvdXQpIG9uQ2hlY2tvdXQoKTtcclxuICB9O1xyXG5cclxuICByZXR1cm4gKFxyXG4gICAgPGRpdlxyXG4gICAgICBzdHlsZT17e1xyXG4gICAgICAgIHBvc2l0aW9uOiBcImZpeGVkXCIsXHJcbiAgICAgICAgdG9wOiAwLFxyXG4gICAgICAgIHJpZ2h0OiBpc09wZW4gPyAwIDogXCItMzUwcHhcIixcclxuICAgICAgICB3aWR0aDogXCIzNTBweFwiLFxyXG4gICAgICAgIGhlaWdodDogXCIxMDB2aFwiLFxyXG4gICAgICAgIGJhY2tncm91bmQ6IFwiI2ZmZlwiLFxyXG4gICAgICAgIGJveFNoYWRvdzogXCIwIDAgMjBweCByZ2JhKDAsMCwwLDAuMTUpXCIsXHJcbiAgICAgICAgdHJhbnNpdGlvbjogXCJyaWdodCAwLjNzIGVhc2VcIixcclxuICAgICAgICB6SW5kZXg6IDMwMDAsXHJcbiAgICAgICAgZGlzcGxheTogXCJmbGV4XCIsXHJcbiAgICAgICAgZmxleERpcmVjdGlvbjogXCJjb2x1bW5cIixcclxuICAgICAgfX1cclxuICAgID5cclxuICAgICAgey8qIEhlYWRlciAqL31cclxuICAgICAgPGRpdlxyXG4gICAgICAgIHN0eWxlPXt7XHJcbiAgICAgICAgICBwYWRkaW5nOiBcIjE2cHhcIixcclxuICAgICAgICAgIGZvbnRTaXplOiBcIjE4cHhcIixcclxuICAgICAgICAgIGZvbnRXZWlnaHQ6IFwiYm9sZFwiLFxyXG4gICAgICAgICAgYm9yZGVyQm90dG9tOiBcIjFweCBzb2xpZCAjZWVlXCIsXHJcbiAgICAgICAgICBkaXNwbGF5OiBcImZsZXhcIixcclxuICAgICAgICAgIGp1c3RpZnlDb250ZW50OiBcInNwYWNlLWJldHdlZW5cIixcclxuICAgICAgICB9fVxyXG4gICAgICA+XHJcbiAgICAgICAgPHNwYW4+UXVpY2sgQ2FydDwvc3Bhbj5cclxuICAgICAgICA8YnV0dG9uXHJcbiAgICAgICAgICBvbkNsaWNrPXtvbkNsb3NlfVxyXG4gICAgICAgICAgc3R5bGU9e3tcclxuICAgICAgICAgICAgYmFja2dyb3VuZDogXCJ0cmFuc3BhcmVudFwiLFxyXG4gICAgICAgICAgICBib3JkZXI6IFwibm9uZVwiLFxyXG4gICAgICAgICAgICBjdXJzb3I6IFwicG9pbnRlclwiLFxyXG4gICAgICAgICAgICBmb250U2l6ZTogXCIyMHB4XCIsXHJcbiAgICAgICAgICB9fVxyXG4gICAgICAgID5cclxuICAgICAgICAgIMOXXHJcbiAgICAgICAgPC9idXR0b24+XHJcbiAgICAgIDwvZGl2PlxyXG5cclxuICAgICAgey8qIENhcnQgSXRlbXMgKi99XHJcbiAgICAgIDxkaXYgc3R5bGU9e3sgZmxleDogMSwgb3ZlcmZsb3dZOiBcImF1dG9cIiwgcGFkZGluZzogXCIxNnB4XCIgfX0+XHJcbiAgICAgICAge2NhcnRJdGVtcy5sZW5ndGggPT09IDAgPyAoXHJcbiAgICAgICAgICA8ZGl2IHN0eWxlPXt7IHRleHRBbGlnbjogXCJjZW50ZXJcIiwgbWFyZ2luVG9wOiBcIjQwcHhcIiwgY29sb3I6IFwiIzc3N1wiIH19PlxyXG4gICAgICAgICAgICBDYXJ0IGlzIGVtcHR5XHJcbiAgICAgICAgICA8L2Rpdj5cclxuICAgICAgICApIDogKFxyXG4gICAgICAgICAgY2FydEl0ZW1zLm1hcCgoaXRlbSkgPT4gKFxyXG4gICAgICAgICAgICA8ZGl2XHJcbiAgICAgICAgICAgICAga2V5PXtpdGVtLmlkfVxyXG4gICAgICAgICAgICAgIHN0eWxlPXt7XHJcbiAgICAgICAgICAgICAgICBwYWRkaW5nOiBcIjEycHhcIixcclxuICAgICAgICAgICAgICAgIGJvcmRlckJvdHRvbTogXCIxcHggc29saWQgI2YwZjBmMFwiLFxyXG4gICAgICAgICAgICAgICAgZGlzcGxheTogXCJmbGV4XCIsXHJcbiAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogXCJzcGFjZS1iZXR3ZWVuXCIsXHJcbiAgICAgICAgICAgICAgfX1cclxuICAgICAgICAgICAgPlxyXG4gICAgICAgICAgICAgIDxkaXY+XHJcbiAgICAgICAgICAgICAgICA8c3Ryb25nPntpdGVtLm5hbWV9PC9zdHJvbmc+XHJcbiAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGZvbnRTaXplOiBcIjEzcHhcIiwgY29sb3I6IFwiIzU1NVwiIH19PuKCuXtpdGVtLnByaWNlfTwvZGl2PlxyXG4gICAgICAgICAgICAgIDwvZGl2PlxyXG4gICAgICAgICAgICAgIDxkaXY+eHtpdGVtLnF0eX08L2Rpdj5cclxuICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICApKVxyXG4gICAgICAgICl9XHJcbiAgICAgIDwvZGl2PlxyXG5cclxuICAgICAgey8qIEZvb3RlciAqL31cclxuICAgICAge2NhcnRJdGVtcy5sZW5ndGggPiAwICYmIChcclxuICAgICAgICA8ZGl2XHJcbiAgICAgICAgICBzdHlsZT17e1xyXG4gICAgICAgICAgICBwYWRkaW5nOiBcIjE2cHhcIixcclxuICAgICAgICAgICAgYm9yZGVyVG9wOiBcIjFweCBzb2xpZCAjZWVlXCIsXHJcbiAgICAgICAgICAgIGRpc3BsYXk6IFwiZmxleFwiLFxyXG4gICAgICAgICAgICBmbGV4RGlyZWN0aW9uOiBcImNvbHVtblwiLFxyXG4gICAgICAgICAgICBnYXA6IFwiMTBweFwiLFxyXG4gICAgICAgICAgfX1cclxuICAgICAgICA+XHJcbiAgICAgICAgICA8YnV0dG9uXHJcbiAgICAgICAgICAgIG9uQ2xpY2s9e2hhbmRsZUNoZWNrb3V0fVxyXG4gICAgICAgICAgICBzdHlsZT17e1xyXG4gICAgICAgICAgICAgIHdpZHRoOiBcIjEwMCVcIixcclxuICAgICAgICAgICAgICBwYWRkaW5nOiBcIjEycHhcIixcclxuICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiBcIiMyNTYzZWJcIixcclxuICAgICAgICAgICAgICBjb2xvcjogXCIjZmZmXCIsXHJcbiAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiBcIjZweFwiLFxyXG4gICAgICAgICAgICAgIGJvcmRlcjogXCJub25lXCIsXHJcbiAgICAgICAgICAgICAgY3Vyc29yOiBcInBvaW50ZXJcIixcclxuICAgICAgICAgICAgfX1cclxuICAgICAgICAgID5cclxuICAgICAgICAgICAgQ2hlY2tvdXRcclxuICAgICAgICAgIDwvYnV0dG9uPlxyXG4gICAgICAgIDwvZGl2PlxyXG4gICAgICApfVxyXG4gICAgPC9kaXY+XHJcbiAgKTtcclxufVxyXG4iXSwiZmlsZSI6IkM6L1VzZXJzL0FTVVMvRGVza3RvcC9SUm5hZ2FyLXdvcmsvZnJvbnRlbmQvc3JjL2NvbXBvbmVudHMvUXVpY2tDYXJ0U2lkZWJhci5qc3gifQ==

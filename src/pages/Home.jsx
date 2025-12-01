@@ -15,14 +15,14 @@ const ads = [
 
 export default function Home() {
   return (
-    <div className="home-page">
-      <section className="ad-grid">
+    <main className="home-page">
+      <section className="ad-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(160px,1fr))', gap: '12px' }}>
         {ads.map(a => (
-          <a key={a.id} href={a.href} className="ad-item" style={{display: 'block'}}>
-            <img src={a.src} alt={a.alt} style={{width: '100%', height: 'auto'}} />
+          <a key={a.id} href={a.href} className="ad-item" style={{ display: 'block', overflow: 'hidden' }}>
+            <img src={a.src} alt={a.alt} style={{ width: '100%', height: 'auto', display: 'block' }} />
           </a>
         ))}
       </section>
-    </div>
+    </main>
   );
 }

@@ -1,9 +1,8 @@
-name: Deploy to GitHub Pages
+name: Deploy Vite Project to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -21,44 +20,25 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
-<<<<<<< HEAD
       - name: Install dependencies
-        run: npm ci
-=======
-      - name: Cache node modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies (try ci, fallback to install)
-        # npm ci is better but can fail with platform-specific lockfile mismatches;
-        # the fallback ensures the job continues on the runner.
-        run: npm ci || npm install
->>>>>>> e654be071b2f64aee93d9372e1b1892a759a61eb
+        run: npm install
 
       - name: Build
         run: npm run build
 
-      - name: Add CNAME to build output
-        run: echo "rrnagar.com" > dist/CNAME
-
-      - name: Upload artifact (dist)
-        uses: actions/upload-pages-artifact@v1
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     steps:
       - name: Deploy to GitHub Pages
-<<<<<<< HEAD
-        uses: actions/deploy-pages@v1
-=======
-        uses: actions/deploy-pages@v1
->>>>>>> e654be071b2f64aee93d9372e1b1892a759a61eb
+        id: deployment
+        uses: actions/deploy-pages@v4

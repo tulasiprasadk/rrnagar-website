@@ -8,7 +8,7 @@ import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
 import PartnerUs from './pages/PartnerUs';
 import Help from './pages/Help';
-import FAQs from './pages/FAQs.jsx';
+
 
 function NotFound() {
   return (
@@ -33,7 +33,6 @@ export default function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/partner" element={<PartnerUs />} />
             <Route path="/help" element={<Help />} />
-            <Route path="/faqs" element={<FAQs />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

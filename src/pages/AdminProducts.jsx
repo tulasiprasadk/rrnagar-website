@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { get, post, put, del } from "../api/client";
 import AdminProductForm from "../components/AdminProductForm";
 import ProductCard from "../components/ProductCard";
@@ -47,7 +47,7 @@ export default function AdminProducts() {
     await load();
   }
 
-  if (loading) return <div style={{ padding: 16 }}>Loading�</div>;
+  if (loading) return <div style={{ padding: 16 }}>Loading…</div>;
   return (
     <div style={{ padding: 16 }}>
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

@@ -1,32 +1,23 @@
-import React, { useEffect, useState } from 'react';
+﻿import React from 'react';
+
+const sampleProducts = [
+  { id: 1, name: 'Product A', price: '₹199' },
+  { id: 2, name: 'Product B', price: '₹299' },
+  { id: 3, name: 'Product C', price: '₹399' },
+];
 
 export default function Products() {
-  const [products, setProducts] = useState(null);
-  const [error, setError] = useState();
-
-  useEffect(() => {
-    fetch('http://localhost:5002/admin/products')
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then(setProducts)
-      .catch((e) => setError(e.message));
-  }, []);
-
-  if (error) return <div style={{ padding: 20, color: 'red' }}>Failed to load products: {error}</div>;
-  if (!products) return <div style={{ padding: 20 }}>Loading products…</div>;
-  if (!products.length) return <div style={{ padding: 20 }}>No products available</div>;
-
   return (
-    <div style={{ padding: 20 }}>
-      {products.map((p) => (
-        <article key={p.id} style={{ borderBottom: '1px solid #eee', padding: '12px 0' }}>
-          <h3 style={{ margin: 0 }}>{p.title}</h3>
-          <p style={{ margin: '6px 0' }}>{p.description}</p>
-          <small>SKU: {p.sku} • Price: {p.price} • Stock: {p.stock}</small>
-        </article>
-      ))}
-    </div>
+    <main style={{ padding: '1rem' }}>
+      <h2>Products</h2>
+      <p>Browse our sample products:</p>
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {sampleProducts.map((p) => (
+          <li key={p.id} style={{ padding: '0.5rem 0', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+            <strong>{p.name}</strong> — <span style={{ color: 'rgba(0,0,0,0.6)' }}>{p.price}</span>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }

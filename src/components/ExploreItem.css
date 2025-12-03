@@ -1,0 +1,25 @@
+import React, { useState } from "react";
+import "./ExploreItem.css";
+
+export default function ExploreItem({ icon, title, desc, longInfo }) {
+  const [showPopup, setShowPopup] = useState(false);
+
+  return (
+    <div
+      className="explore-card"
+      onMouseEnter={() => setShowPopup(true)}
+      onMouseLeave={() => setShowPopup(false)}
+    >
+      <div className="explore-icon-wrap">
+        <span className="explore-icon">{icon}</span>
+      </div>
+      <h3>{title}</h3>
+      <p>{desc}</p>
+
+      <div className={`explore-popup ${showPopup ? "visible" : ""}`}>
+        <div className="popup-title">{title}</div>
+        <div className="popup-body">{longInfo}</div>
+      </div>
+    </div>
+  );
+}

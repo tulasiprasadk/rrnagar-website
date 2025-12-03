@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchOrder, updateOrder } from "../api/payments";
 
@@ -55,7 +55,7 @@ export default function ConfirmPI() {
     }
   }
 
-  if (!order) return <main style={{ padding: 20 }}>Loading invoice�</main>;
+  if (!order) return <main style={{ padding: 20 }}>Loading invoice…</main>;
 
   return (
     <main style={{ padding: 20 }}>

@@ -1,16 +1,41 @@
-# React + Vite
+﻿# RR-NAGAR — local dev helpers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This adds a Vite proxy and helper scripts so the frontend uses the mock backend reliably during development.
 
-Currently, two official plugins are available:
+What was added
+- frontend/vite.config.js — Vite dev-server proxy so `/api/*` requests are forwarded to `http://localhost:4000`.
+- frontend/.env.example — documents VITE_API_URL usage.
+- start-all.ps1 — Windows helper that starts backend and frontend in separate PowerShell windows (frontend gets VITE_API_URL).
+- docker-compose.yml — optional: run backend + frontend in containers.
+- README.md — this file.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Quick local run (Windows)
+1. From repo root, run:
+   .\start-all.ps1
 
-## React Compiler
+2. Watch the two new PowerShell windows:
+   - Backend window should show "Mock API listening on http://localhost:4000" (or similar).
+   - Frontend window (Vite) shows the Local URL (usually http://localhost:5173 or fallback).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3. Open the Vite URL in the browser and verify:
+   - DevTools → Network → XHR: confirm GET /api/products returns JSON.
+   - Or run:
+     curl -i "http://localhost:4000/api/products"   # backend direct
+     curl -i "http://localhost:5173/api/products"   # proxied via Vite (if proxy active)
 
-## Expanding the ESLint configuration
+Quick Docker run (optional)
+1. docker-compose up --build
+2. Backend: http://localhost:4000
+   Frontend: http://localhost:5173
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+If products or admin/supplier panels still do not appear
+1. Confirm backend returns JSON:
+   curl -i "http://localhost:4000/api/products"
+
+2. Confirm frontend request URL in DevTools (Network → XHR) — it should be proxied to the backend or use import.meta.env.VITE_API_URL.
+
+3. Paste any console errors here and I’ll diagnose.
+
+Notes
+- If a vite.config.js already existed, merge the server.proxy object instead of overwriting unrelated options.
+- If your frontend already uses import.meta.env.VITE_API_URL, the start script sets it. If it uses relative /api paths, the proxy handles them.

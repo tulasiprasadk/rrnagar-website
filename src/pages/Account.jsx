@@ -1,10 +1,8 @@
-import React from "react";
-
 export default function Account() {
   return (
-    <main style={{ padding: 24 }}>
-      <h1>Your Account</h1>
-      <p>Account page . Replace with your account UI.</p>
+    <main style={{ padding: '2rem', textAlign: 'center' }}>
+      <h2>Your Account</h2>
+      <p>This is a placeholder for your account details.</p>
     </main>
   );
 }

@@ -84,7 +84,7 @@
 
 .ad-track {
   display: flex;
-  gap: 40px;
+  gap: 150px;
   align-items: center;
   animation: adsScroll 35s linear infinite;
 }

@@ -1,29 +1,50 @@
-import React, { useState } from "react";
+﻿import React from "react";
+import heroImg from "../assets/hero.jpg";
+import ad1 from "../assets/ads/ad1.jpg";
+import ad2 from "../assets/ads/ad2.jpg";
+import ad3 from "../assets/ads/ad3.jpg";
+import ad4 from "../assets/ads/ad4.jpg";
+import ExploreItem from "../components/ExploreItem";
 import "./Home.css";
-import heroImg from "../assets/rrnagar_hero.jpg";
+
+const ads = [
+  {
+    id: 1,
+    href: "https://ichase.in",
+    src: ad1,
+    alt: "Fitness",
+  },
+  {
+    id: 2,
+    href: "https://vchase.in",
+    src: ad2,
+    alt: "Marketing",
+  },
+  {
+    id: 3,
+    href: "https://rrnagar.com",
+    src: ad3,
+    alt: "Crackers",
+  },
+  {
+    id: 4,
+    href: "https://renee.pet",
+    src: ad4,
+    alt: "Pet Care",
+  },
+];
 
 export default function Home() {
-  const ads = [
-    { id: "vchase", src: "/src/assets/ads/vchase.png", href: "#", alt: "VChase" },
-    { id: "rrnagar", src: "/src/assets/ads/rrnagar.png", href: "#", alt: "RR Nagar" },
-    { id: "gephyr", src: "/src/assets/ads/gephyr.png", href: "#", alt: "Gephyr" },
-    { id: "ichase", src: "/src/assets/ads/ichase.png", href: "#", alt: "iChase" },
-    { id: "reneevet", src: "/src/assets/ads/reneevet.png", href: "#", alt: "Renee Vet" }
-  ];
-
   return (
     <main className="home-container">
-
-      
+      {/* Hero Section */}
       <section className="hero">
         <div className="hero-image">
           <img src={heroImg} alt="RR Nagar" />
         </div>
-
         <div className="hero-text">
           <h1 className="hero-title">ನಮ್ಮಿಂದ ನಿಮಗೆ — ನಿಮ್ಮಷ್ಟೇ ಹತ್ತಿರ.</h1>
           <p className="hero-sub">From Us To You — As Close As You Need Us.</p>
-
           <div className="search-box">
             <input type="text" placeholder="Search RR Nagar shops, services…" />
             <button>Search</button>
@@ -31,7 +52,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+      {/* Categories */}
       <section className="popular-cat">
         <h2>Popular Categories</h2>
         <div className="cat-grid">
@@ -44,38 +65,29 @@ export default function Home() {
         </div>
       </section>
 
-      
+      {/* Ads Section */}
       <section className="ad-section" aria-label="Promotions">
         <div className="ad-track" role="list">
-          {ads.map((ad) => (
-            <a key={ad.id} href={ad.href} className="ad-card" target="_blank" rel="noopener noreferrer">
+          {ads.concat(ads).map((ad, index) => (
+            <div key={index} className="ad-card">
               <img src={ad.src} alt={ad.alt} className="ad-img" />
-              <span className="ad-name">{ad.alt}</span>
-            </a>
-          ))}
-
-          
-          {ads.map((ad) => (
-            <a
-              key={ad.id + "-dup"}
-              href={ad.href}
-              className="ad-card"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-hidden="true"
-              tabIndex={-1}
-            >
-              <img src={ad.src} alt={ad.alt} className="ad-img" />
-              <span className="ad-name">{ad.alt}</span>
-            </a>
+              <a
+                href={ad.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ad-name"
+                style={{ textDecoration: "none", color: "#c8102e" }}
+              >
+                {ad.alt}
+              </a>
+            </div>
           ))}
         </div>
       </section>
 
-      
+      {/* Explore Section */}
       <section className="explore-section">
         <h2>Discover RR Nagar</h2>
-
         <div className="explore-grid">
           <ExploreItem
             icon="🛕"
@@ -83,28 +95,24 @@ export default function Home() {
             desc="Spiritual & heritage sites."
             longInfo="Famous temples: Rajarajeshwari Temple, Bhuvaneshwari Temple, Sri Muktheertheshwara."
           />
-
           <ExploreItem
             icon="🌳"
             title="Parks"
             desc="Green peaceful spaces."
             longInfo="Biodiversity Park, BDA parks, and community gardens to relax."
           />
-
           <ExploreItem
             icon="🖥️"
             title="IT Parks"
             desc="Major tech hubs nearby."
             longInfo="Very close to Global Village Tech Park with many IT companies."
           />
-
           <ExploreItem
             icon="🎓"
             title="Education"
             desc="Schools & colleges."
             longInfo="RR Nagar has top schools, PU colleges and coaching centers."
           />
-
           <ExploreItem
             icon="🎭"
             title="Entertainment"
@@ -113,32 +121,6 @@ export default function Home() {
           />
         </div>
       </section>
-
     </main>
-  );
-}
-
-/* EXPLORE ITEM */
-function ExploreItem({ icon, title, desc, longInfo }) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div
-      className="explore-card"
-      onMouseLeave={() => setOpen(false)}
-      onClick={() => setOpen((v) => !v)}
-    >
-      <div className="explore-icon-wrap">
-        <span className="explore-icon">{icon}</span>
-      </div>
-
-      <h3>{title}</h3>
-      <p>{desc}</p>
-
-      <div className={`explore-popup ${open ? "visible" : ""}`}>
-        <div className="popup-title">{title}</div>
-        <div className="popup-body">{longInfo}</div>
-      </div>
-    </div>
   );
 }

@@ -9,7 +9,6 @@
   padding: 0 40px;
   position: relative;
   border-radius: 10px;
-  margin: 0 auto;
 }
 
 /* ================= LEFT: LOGO + TAGLINE ================= */
@@ -24,7 +23,7 @@
 /* LOGO in yellow area (top section) */
 .rr-logo {
   position: absolute;
-  top: 5px;     /* adjust up/down */
+  top: 5px;
   left: 0;
   height: 110px;
   width: auto;
@@ -34,7 +33,7 @@
 /* TAGLINE in red area (bottom section) */
 .rr-tagline {
   position: absolute;
-  bottom: 4px;   /* adjust up/down */
+  bottom: 4px;
   left: 0;
   font-size: 18px;
   font-weight: bold;
@@ -45,11 +44,11 @@
 .header-nav {
   display: flex;
   gap: 40px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   height: 100%;
-  align-items: center;       /* center between red & yellow */
-  margin-top: -1px;          /* fine tune vertical alignment */
+  align-items: center;
+  margin-top: -1px;
 }
 
 /* NAV LINKS */
@@ -58,14 +57,30 @@
   text-decoration: none;
   padding: 4px 6px;
   transition: 0.2s ease;
+  font-size: 18px; /* Default desktop */
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .header-nav a:hover {
   opacity: 0.7;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 768px) {
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
+
+/* Tablet View */
+@media (min-width: 601px) and (max-width: 992px) {
+  .header-nav {
+    gap: 30px;
+  }
+
+  .header-nav a {
+    font-size: 16px;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 600px) {
   .header-container {
     flex-direction: column;
     height: auto;
@@ -74,27 +89,28 @@
   }
 
   .header-left {
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    height: auto;
-    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 15px;
   }
 
   .rr-logo {
     position: static;
-    height: 80px;
+    height: 90px;
   }
 
   .rr-tagline {
     position: static;
-    font-size: 16px;
     margin-top: 8px;
+    font-size: 16px;
   }
 
   .header-nav {
     flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 15px;
+  }
+
+  .header-nav a {
+    font-size: 14px;
   }
 }

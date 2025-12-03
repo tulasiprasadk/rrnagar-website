@@ -9,6 +9,7 @@
   padding: 0 40px;
   position: relative;
   border-radius: 10px;
+  margin: 0 auto;
 }
 
 /* ================= LEFT: LOGO + TAGLINE ================= */
@@ -47,8 +48,8 @@
   font-size: 16px;
   font-weight: 600;
   height: 100%;
-  align-items: center;       /* <-- This centers perfectly between red & yellow */
-  margin-top: -1px;          /* Fine tune vertical alignment */
+  align-items: center;       /* center between red & yellow */
+  margin-top: -1px;          /* fine tune vertical alignment */
 }
 
 /* NAV LINKS */
@@ -61,4 +62,39 @@
 
 .header-nav a:hover {
   opacity: 0.7;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .header-left {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .rr-logo {
+    position: static;
+    height: 80px;
+  }
+
+  .rr-tagline {
+    position: static;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  .header-nav {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
 }

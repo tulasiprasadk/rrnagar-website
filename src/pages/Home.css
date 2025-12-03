@@ -115,7 +115,12 @@
   font-size: 15px;
   font-weight: 500;
   color: #c8102e;
+  word-wrap: break-word;
+  white-space: normal;
+  max-width: 100px;
+  text-align: center;
 }
+
 
 @keyframes adsScroll {
   from {

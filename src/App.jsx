@@ -8,7 +8,7 @@ import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
 import PartnerUs from './pages/PartnerUs';
 import Help from './pages/Help';
-import FAQs from './pages/FAQs';
+import FAQs from './pages/FAQs.jsx';
 
 function NotFound() {
   return (

@@ -226,3 +226,47 @@
   font-size: 13px; 
   line-height: 1.38; 
 }
+
+/* ================= DISCOVER AUTO-SCROLL ================= */
+
+.explore-scroll-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  margin-top: 20px;
+}
+
+.explore-scroll-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: exploreScroll 25s linear infinite;
+}
+
+.explore-scroll-wrapper:hover .explore-scroll-track {
+  animation-play-state: paused;
+}
+
+@keyframes exploreScroll {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Card size inside auto-scroll */
+.explore-card {
+  flex: 0 0 200px;
+}
+/* FIX POPUP VISIBILITY */
+.explore-card {
+  position: relative;
+  z-index: 2;
+}
+
+.explore-popup {
+  z-index: 9999 !important;
+  pointer-events: none;
+}

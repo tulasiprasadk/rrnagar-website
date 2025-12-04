@@ -83,17 +83,69 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Explore Section */}
-      <section className="explore-section">
-        <h2>Discover RR Nagar</h2>
-        <div className="explore-grid">
-          <ExploreItem icon="🛕" title="Temples" desc="Spiritual & heritage." />
-          <ExploreItem icon="🌳" title="Parks" desc="Green spaces." />
-          <ExploreItem icon="🖥️" title="IT Parks" desc="Tech hubs." />
-          <ExploreItem icon="🎓" title="Education" desc="Schools & colleges." />
-          <ExploreItem icon="🎭" title="Entertainment" desc="Fun places." />
-        </div>
-      </section>
+<section className="explore-section">
+  <h2>Discover RR Nagar</h2>
+
+  <div className="explore-scroll-wrapper">
+    <div className="explore-scroll-track">
+      {(() => {
+        const items = [
+          {
+            key: "temples",
+            icon: "🛕",
+            title: "Temples",
+            desc: "Spiritual & heritage.",
+            longInfo: "RR Nagar is home to several well-known temples such as the Sri Rajarajeshwari Temple, Sri Muktheertheshwara Temple, and Bhuvaneshwari Temple. These places host daily rituals, cultural festivals, spiritual events, and community gatherings, making them important landmarks of devotion and heritage in the area"
+          },
+          {
+            key: "parks",
+            icon: "🌳",
+            title: "Parks",
+            desc: "Green spaces.",
+            longInfo: "RR Nagar has peaceful green spaces including the RR Nagar Biodiversity Park, multiple community parks, and lakeside walking areas. These places are ideal for morning walks, jogging, yoga groups, children’s play zones, and family outings, offering a refreshing escape from city traffic."
+          },
+          {
+            key: "itparks",
+            icon: "🖥️",
+            title: "IT Parks",
+            desc: "Tech hubs.",
+            longInfo: "RR Nagar is located close to Global Village Tech Park, which hosts major IT companies and startups. It provides excellent employment opportunities, coworking spaces, training centers, and tech communities, making the neighborhood popular among working professionals."
+          },
+          {
+            key: "education",
+            icon: "🎓",
+            title: "Education",
+            desc: "Schools & colleges.",
+            longInfo: "RR Nagar offers access to many reputable schools, PU colleges, degree colleges, and coaching centers. Institutions in the area focus on academics, sports, extracurricular activities, and competitive exam coaching, contributing to a strong learning ecosystem for students of all ages."
+          },
+          {
+            key: "entertainment",
+            icon: "🎭",
+            title: "Entertainment",
+            desc: "Fun places.",
+            longInfo: "From malls and theatres to food streets and family entertainment zones, RR Nagar provides a variety of leisure options. Residents enjoy movie nights, shopping, gaming centers, cultural programs, and weekend hangouts across popular spots in and around the neighborhood."
+          }
+        ];
+
+        const longList = [...items, ...items]; // for infinite loop
+
+        return longList.map((it, i) => (
+          <ExploreItem
+            key={i}
+            icon={it.icon}
+            title={it.title}
+            desc={it.desc}
+            longInfo={it.longInfo}
+          />
+        ));
+      })()}
+    </div>
+  </div>
+</section>
+
+
+
+
 
     </main>
   );

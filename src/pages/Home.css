@@ -1,4 +1,6 @@
-/* GLOBAL */
+/* =========================================================
+   GLOBAL
+========================================================= */
 .home-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -6,7 +8,9 @@
   box-sizing: border-box;
 }
 
-/* ================= HERO ================= */
+/* =========================================================
+   HERO
+========================================================= */
 .hero {
   margin: 10px auto;
   padding: 28px;
@@ -21,27 +25,22 @@
 .hero-image img {
   max-width: 480px;
   width: 100%;
-  height: auto;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  display: block;
 }
 
 .hero-text {
   flex: 1 1 320px;
-  min-width: 220px;
 }
 
 .hero-title {
   font-size: 36px;
   font-weight: 800;
-  margin: 0 0 8px 0;
 }
 
 .hero-sub {
   font-size: 16px;
   color: #444;
-  margin: 0 0 12px 0;
 }
 
 .search-box {
@@ -52,29 +51,27 @@
 
 .search-box input {
   flex: 1;
-  min-width: 0;
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #aaa;
-  box-sizing: border-box;
 }
 
 .search-box button {
   padding: 10px 14px;
   border-radius: 8px;
-  border: none;
   background: #c8102e;
-  color: white;
-  font-weight: 600;
+  color: #fff;
+  border: none;
   cursor: pointer;
 }
 
-/* ================= POPULAR CATEGORIES ================= */
+/* =========================================================
+   POPULAR CATEGORIES
+========================================================= */
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 18px;
-  width: 100%;
 }
 
 @media (max-width: 700px) {
@@ -98,18 +95,18 @@
   display: block;
 }
 
-/* ================= ADS MARQUEE ================= */
+/* =========================================================
+   ADS MARQUEE (RIGHT → LEFT)
+========================================================= */
 .ad-section {
   margin: 40px 0;
-  overflow: hidden;
-  width: 100%;
-}
-
-.ad-marquee {
   width: 100%;
   overflow: hidden;
+  z-index: 5;
   position: relative;
 }
+
+.ad-marquee { width: 100%; }
 
 .ad-track {
   display: flex;
@@ -122,8 +119,12 @@
   animation-play-state: paused;
 }
 
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .ad-card {
-  flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -131,142 +132,140 @@
   background: white;
   border-radius: 14px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  min-width: 180px;
 }
 
 .ad-img {
   width: 72px;
   height: 72px;
-  object-fit: cover;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .ad-name {
-  font-size: 16px;
   font-weight: 600;
   color: #c8102e;
 }
 
-/* Marquee Animation */
-@keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
+/* =========================================================
+   DISCOVER SECTION — SAME THEME AS CATEGORIES
+========================================================= */
 
-/* ================= EXPLORE ================= */
+/* Section background same as popular categories theme */
 .explore-section {
-  margin-top: 28px;
+  background: #fff8d1;     /* soft yellow section */
+  padding: 20px 0;
+  border-radius: 12px;
+  position: relative;
+  z-index: 20;
 }
 
 .explore-section h2 {
   font-size: 24px;
   margin-bottom: 14px;
+  text-align: left;
   color: #222;
 }
 
-.explore-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 18px;
-}
-
-.explore-card {
-  background: #ffe865;
-  padding: 18px;
-  border-radius: 14px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-}
-
-.explore-icon-wrap {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 10px auto;
-}
-
-.explore-icon {
-  font-size: 30px;
-}
-
-/* Popup */
-.explore-popup {
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  visibility: hidden;
-  width: 220px;
-  background: #111;
-  color: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  transition: 0.18s ease;
-  z-index: 999;
-}
-
-.explore-popup.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.popup-title { 
-  font-size: 15px; 
-  font-weight: 700; 
-}
-
-.popup-body { 
-  font-size: 13px; 
-  line-height: 1.38; 
-}
-
-/* ================= DISCOVER AUTO-SCROLL ================= */
-
+/* ---- HORIZONTAL SCROLL: LEFT → RIGHT ---- */
 .explore-scroll-wrapper {
-  overflow: hidden;
+  overflow: visible !important;
   width: 100%;
   position: relative;
-  margin-top: 20px;
 }
 
 .explore-scroll-track {
   display: flex;
-  gap: 20px;
+  gap: 100px;
   width: max-content;
-  animation: exploreScroll 25s linear infinite;
+  animation: exploreScrollLTR 100s linear infinite;
+  position: relative;
+  z-index: 50;
 }
 
 .explore-scroll-wrapper:hover .explore-scroll-track {
   animation-play-state: paused;
 }
 
-@keyframes exploreScroll {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
+@keyframes exploreScrollLTR {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
 }
 
-/* Card size inside auto-scroll */
+/* =========================================================
+   DISCOVER CARDS — CENTER EVERYTHING, SAME COLOUR AS CATEGORIES
+========================================================= */
+
 .explore-card {
+  background: #ffd700 !important;
+  color: #a80000 !important;
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
   flex: 0 0 200px;
-}
-/* FIX POPUP VISIBILITY */
-.explore-card {
   position: relative;
-  z-index: 2;
+  overflow: visible !important;
 }
 
-.explore-popup {
-  z-index: 9999 !important;
-  pointer-events: none;
+/* BIGGER CENTERED ICON */
+.explore-icon-wrap {
+  width: 90px;
+  height: 90px;
+  background: white;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
+
+.explore-icon {
+  font-size: 48px !important;
+}
+
+/* CENTER TITLE */
+.explore-card h3 {
+  text-align: center !important;
+  margin: 8px 0 6px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* CENTER SUBTITLE */
+.explore-card p {
+  text-align: center !important;
+  font-size: 14px;
+  color: #7a0000;
+  margin: 0;
+}
+
+/* =========================================================
+   POPUP — ALWAYS VISIBLE ABOVE ADS
+========================================================= */
+.explore-popup {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  width: 300px;
+  max-width: 90vw;
+  background: rgba(17,17,17,0.95);
+  color: #fff;
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 999999 !important;
+}
+
+.explore-popup.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.popup-title { font-weight: 700; margin-bottom: 6px; }
+.popup-body { line-height: 1.45; font-size: 14px; max-height: 45vh; overflow-y: auto; }

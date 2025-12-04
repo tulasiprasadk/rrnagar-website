@@ -1,6 +1,4 @@
-﻿// src/pages/Home.jsx
-
-import React, { useState } from "react";
+﻿import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import heroImg from "../assets/hero.jpg";
@@ -20,60 +18,86 @@ const ads = [
 ];
 
 export default function Home() {
-  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  function doSearch() {
-    if (!search.trim()) return;
-    navigate(`/products?search=${encodeURIComponent(search)}`);
-  }
+  const items = useMemo(() => [
+    {
+      key: "temples",
+      icon: "🛕",
+      title: "Temples",
+      desc: "Spiritual & heritage.",
+      longInfo:
+        "RR Nagar is home to several well-known temples such as Sri Rajarajeshwari, Sri Muktheertheshwara and Bhuvaneshwari Temple. They host festivals and daily rituals — great for culture and heritage exploration."
+    },
+    {
+      key: "parks",
+      icon: "🌳",
+      title: "Parks",
+      desc: "Green spaces.",
+      longInfo:
+        "RR Nagar has peaceful green spaces including the Biodiversity Park and many pocket parks — ideal for walks, yoga, and family time."
+    },
+    {
+      key: "itparks",
+      icon: "🖥️",
+      title: "IT Parks",
+      desc: "Tech hubs.",
+      longInfo:
+        "Close to Global Village Tech Park and other tech clusters, RR Nagar is convenient for IT professionals and startups."
+    },
+    {
+      key: "education",
+      icon: "🎓",
+      title: "Education",
+      desc: "Schools & colleges.",
+      longInfo:
+        "RR Nagar features reputable schools, PU colleges and coaching centres for competitive exams — a strong educational ecosystem."
+    },
+    {
+      key: "entertainment",
+      icon: "🎭",
+      title: "Entertainment",
+      desc: "Fun places.",
+      longInfo:
+        "From malls and cinemas to food streets and family entertainment zones, RR Nagar has options for leisure and events."
+    }
+  ], []);
+
+  // duplicated lists for infinite marquee
+  const adsLoop = [...ads, ...ads];
+  const itemsLoop = [...items, ...items];
 
   return (
     <main className="home-container">
-
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="hero">
-        <div className="hero-image">
-          <img src={heroImg} alt="RR Nagar" />
-        </div>
-
+        <div className="hero-image"><img src={heroImg} alt="RR Nagar" /></div>
         <div className="hero-text">
           <h1 className="hero-title">ನಮ್ಮಿಂದ ನಿಮಗೆ — ನಿಮ್ಮಷ್ಟೇ ಹತ್ತಿರ.</h1>
           <p className="hero-sub">From Us To You — As Close As You Need Us.</p>
-
-          <div className="search-box">
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && doSearch()}
-              placeholder="Search RR Nagar shops, services…"
-            />
-            <button onClick={doSearch}>Search</button>
-          </div>
         </div>
       </section>
 
-      {/* Popular Categories */}
+      {/* Categories (grid, NOT scrolling) */}
       <section className="popular-cat">
         <h2>Popular Categories</h2>
         <div className="cat-grid">
-          <div className="cat-item"><span className="cat-icon">🛒</span>Groceries</div>
-          <div className="cat-item"><span className="cat-icon">🌸</span>Flowers</div>
-          <div className="cat-item"><span className="cat-icon">🐶</span>Pet Services</div>
-          <div className="cat-item"><span className="cat-icon">🚕</span>Travels</div>
-          <div className="cat-item"><span className="cat-icon">🏠</span>Home Services</div>
-          <div className="cat-item"><span className="cat-icon">🍽️</span>Restaurants</div>
+          <div className="cat-item"><span className="cat-icon">🛒</span><div>Groceries</div></div>
+          <div className="cat-item"><span className="cat-icon">🌸</span><div>Flowers</div></div>
+          <div className="cat-item"><span className="cat-icon">🐶</span><div>Pet Services</div></div>
+          <div className="cat-item"><span className="cat-icon">🚕</span><div>Travels</div></div>
+          <div className="cat-item"><span className="cat-icon">🏠</span><div>Home Services</div></div>
+          <div className="cat-item"><span className="cat-icon">🍽️</span><div>Restaurants</div></div>
         </div>
       </section>
 
-      {/* Ads Section */}
-      <section className="ad-section">
+      {/* Ads (right -> left marquee) */}
+      <section className="ad-section" aria-label="Promotions">
         <div className="ad-marquee">
-          <div className="ad-track">
-            {[...ads, ...ads].map((ad, index) => (
-              <div key={index} className="ad-card">
-                <a href={ad.href} target="_blank" rel="noopener noreferrer">
+          <div className="ad-track" role="list">
+            {adsLoop.map((ad, i) => (
+              <div key={i} className="ad-card" role="listitem">
+                <a href={ad.href} target="_blank" rel="noreferrer noopener">
                   <img src={ad.src} alt={ad.alt} className="ad-img" />
                 </a>
                 <div className="ad-name">{ad.alt}</div>
@@ -83,70 +107,23 @@ export default function Home() {
         </div>
       </section>
 
-<section className="explore-section">
-  <h2>Discover RR Nagar</h2>
-
-  <div className="explore-scroll-wrapper">
-    <div className="explore-scroll-track">
-      {(() => {
-        const items = [
-          {
-            key: "temples",
-            icon: "🛕",
-            title: "Temples",
-            desc: "Spiritual & heritage.",
-            longInfo: "RR Nagar is home to several well-known temples such as the Sri Rajarajeshwari Temple, Sri Muktheertheshwara Temple, and Bhuvaneshwari Temple. These places host daily rituals, cultural festivals, spiritual events, and community gatherings, making them important landmarks of devotion and heritage in the area"
-          },
-          {
-            key: "parks",
-            icon: "🌳",
-            title: "Parks",
-            desc: "Green spaces.",
-            longInfo: "RR Nagar has peaceful green spaces including the RR Nagar Biodiversity Park, multiple community parks, and lakeside walking areas. These places are ideal for morning walks, jogging, yoga groups, children’s play zones, and family outings, offering a refreshing escape from city traffic."
-          },
-          {
-            key: "itparks",
-            icon: "🖥️",
-            title: "IT Parks",
-            desc: "Tech hubs.",
-            longInfo: "RR Nagar is located close to Global Village Tech Park, which hosts major IT companies and startups. It provides excellent employment opportunities, coworking spaces, training centers, and tech communities, making the neighborhood popular among working professionals."
-          },
-          {
-            key: "education",
-            icon: "🎓",
-            title: "Education",
-            desc: "Schools & colleges.",
-            longInfo: "RR Nagar offers access to many reputable schools, PU colleges, degree colleges, and coaching centers. Institutions in the area focus on academics, sports, extracurricular activities, and competitive exam coaching, contributing to a strong learning ecosystem for students of all ages."
-          },
-          {
-            key: "entertainment",
-            icon: "🎭",
-            title: "Entertainment",
-            desc: "Fun places.",
-            longInfo: "From malls and theatres to food streets and family entertainment zones, RR Nagar provides a variety of leisure options. Residents enjoy movie nights, shopping, gaming centers, cultural programs, and weekend hangouts across popular spots in and around the neighborhood."
-          }
-        ];
-
-        const longList = [...items, ...items]; // for infinite loop
-
-        return longList.map((it, i) => (
-          <ExploreItem
-            key={i}
-            icon={it.icon}
-            title={it.title}
-            desc={it.desc}
-            longInfo={it.longInfo}
-          />
-        ));
-      })()}
-    </div>
-  </div>
-</section>
-
-
-
-
-
+      {/* Discover (left -> right marquee) */}
+      <section className="explore-section">
+        <h2>Discover RR Nagar</h2>
+        <div className="explore-scroll-wrapper" aria-hidden="false">
+          <div className="explore-scroll-track" role="list">
+            {itemsLoop.map((it, idx) => (
+              <ExploreItem
+                key={`${it.key}-${idx}`}
+                icon={it.icon}
+                title={it.title}
+                desc={it.desc}
+                longInfo={it.longInfo}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

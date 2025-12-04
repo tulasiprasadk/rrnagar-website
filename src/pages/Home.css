@@ -1,271 +1,199 @@
 /* =========================================================
-   GLOBAL
+   Home.css - final unified theme
+   Cards: 125 x 130 (strict), yellow bg, red text/icons
+   Ads: right->left, Discover: left->right (infinite loop)
 ========================================================= */
+
 .home-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px 12px;
+  padding: 20px;
   box-sizing: border-box;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* =========================================================
-   HERO
-========================================================= */
+/* ---------------- HERO ---------------- */
 .hero {
-  margin: 10px auto;
-  padding: 28px;
-  border-radius: 18px;
+  margin: 10px 0 20px;
+  padding: 22px;
+  border-radius: 12px;
   background: linear-gradient(to right, #fff8df, #f3f7fa);
   display: flex;
-  gap: 28px;
+  gap: 22px;
   align-items: center;
-  flex-wrap: wrap;
+}
+.hero-image img { max-width: 460px; width: 100%; border-radius: 12px; }
+.hero-title { font-size: 32px; margin: 0; font-weight: 800; }
+.hero-sub { margin: 6px 0 0; color: #444; }
+
+/* ---------------- UNIVERSAL CARD SIZE ---------------- */
+.card-size {
+  width: 125px;
+  height: 130px;
+  flex: 0 0 125px ; /* prevent shrinking in flex containers */  
 }
 
-.hero-image img {
-  max-width: 480px;
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.hero-text {
-  flex: 1 1 320px;
-}
-
-.hero-title {
-  font-size: 36px;
-  font-weight: 800;
-}
-
-.hero-sub {
-  font-size: 16px;
-  color: #444;
-}
-
-.search-box {
-  margin-top: 12px;
+/* shared card design */
+.card-unified {
+  background: #ffd700;
+  color: #a80000;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.search-box input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #aaa;
-}
+/* ---------------- CATEGORIES (grid) ---------------- */
+.popular-cat { margin-top: 18px; }
+.popular-cat h2 { margin: 0 0 10px; font-size: 22px; color: #222; }
 
-.search-box button {
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: #c8102e;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
-
-/* =========================================================
-   POPULAR CATEGORIES
-========================================================= */
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 18px;
 }
 
-@media (max-width: 700px) {
-  .cat-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 .cat-item {
+  /* compose unified + fixed size */
+  width: 125px;
+  height: 130px;
   background: #ffd700;
-  padding: 14px;
-  border-radius: 12px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 700;
   color: #a80000;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  text-align: center;
 }
 
-.cat-icon {
-  font-size: 22px;
-  display: block;
+.cat-icon { font-size: 75px; margin-bottom: 10px; }
+
+/* responsive categories */
+@media (max-width: 900px) {
+  .cat-grid { grid-template-columns: repeat(3, 1fr); justify-items: center; }
+}
+@media (max-width: 700px) {
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* =========================================================
-   ADS MARQUEE (RIGHT → LEFT)
-========================================================= */
-.ad-section {
-  margin: 40px 0;
-  width: 100%;
-  overflow: hidden;
-  z-index: 5;
-  position: relative;
-}
-
-.ad-marquee { width: 100%; }
-
+/* ---------------- ADS (right -> left infinite marquee) ---------------- */
+.ad-section { margin: 30px 0; position: relative; overflow: hidden; }
 .ad-track {
   display: flex;
-  gap: 32px;
+  gap: 20px;
   width: max-content;
-  animation: marqueeScroll 22s linear infinite;
+  animation: adsScrollRTL 30s linear infinite;
+  align-items: center;
 }
+.ad-section:hover .ad-track { animation-play-state: paused; }
 
-.ad-section:hover .ad-track {
-  animation-play-state: paused;
-}
-
-@keyframes marqueeScroll {
+@keyframes adsScrollRTL {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
 
 .ad-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  background: white;
+  width: 125px;
+  height: 130px;
+  background: #ffd700;
+  color: #a80000;
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-}
-
-.ad-img {
-  width: 72px;
-  height: 72px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.ad-name {
-  font-weight: 600;
-  color: #c8102e;
-}
-
-/* =========================================================
-   DISCOVER SECTION — SAME THEME AS CATEGORIES
-========================================================= */
-
-/* Section background same as popular categories theme */
-.explore-section {
-  background: #fff8d1;     /* soft yellow section */
-  padding: 20px 0;
-  border-radius: 12px;
-  position: relative;
-  z-index: 20;
-}
-
-.explore-section h2 {
-  font-size: 24px;
-  margin-bottom: 14px;
-  text-align: left;
-  color: #222;
-}
-
-/* ---- HORIZONTAL SCROLL: LEFT → RIGHT ---- */
-.explore-scroll-wrapper {
-  overflow: visible !important;
-  width: 100%;
-  position: relative;
-}
-
-.explore-scroll-track {
+  padding: 10px 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
   display: flex;
-  gap: 100px;
-  width: max-content;
-  animation: exploreScrollLTR 100s linear infinite;
-  position: relative;
-  z-index: 50;
-}
-
-.explore-scroll-wrapper:hover .explore-scroll-track {
-  animation-play-state: paused;
-}
-
-@keyframes exploreScrollLTR {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
-}
-
-/* =========================================================
-   DISCOVER CARDS — CENTER EVERYTHING, SAME COLOUR AS CATEGORIES
-========================================================= */
-
-.explore-card {
-  background: #ffd700 !important;
-  color: #a80000 !important;
-  padding: 20px;
-  border-radius: 14px;
-  text-align: center !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-  flex: 0 0 200px;
-  position: relative;
-  overflow: visible !important;
-}
-
-/* BIGGER CENTERED ICON */
-.explore-icon-wrap {
-  width: 90px;
-  height: 90px;
-  background: white;
-  border-radius: 50%;
-  margin: 0 auto 12px;
-  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  text-align: center;
 }
 
-.explore-icon {
-  font-size: 48px !important;
+.ad-img { width: 100px; height: 100px; object-fit: cover; border-radius: 10px; margin-bottom: 8px; }
+.ad-name { font-weight: 700; }
+
+/* ---------------- DISCOVER (left -> right infinite marquee) ---------------- */
+.explore-section { margin: 28px 0; }
+.explore-section h2 { margin: 0 0 10px; font-size: 22px; color: #222; }
+
+.explore-scroll-wrapper { overflow: visible; position: relative; }
+.explore-scroll-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: exploreScrollLTR 35s linear infinite;
+  align-items: center;
+}
+.explore-scroll-wrapper:hover .explore-scroll-track { animation-play-state: paused; }
+
+@keyframes exploreScrollLTR {
+  from { transform: translateX(0); }
+  to   { transform: translateX(50%); } /* move right */
 }
 
-/* CENTER TITLE */
-.explore-card h3 {
-  text-align: center !important;
-  margin: 8px 0 6px;
-  font-size: 20px;
-  font-weight: 700;
+.explore-card {
+  width: 125px;
+  height: 130px;
+  background: #ffd700;
+  color: #a80000;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
 }
 
-/* CENTER SUBTITLE */
-.explore-card p {
-  text-align: center !important;
-  font-size: 14px;
-  color: #7a0000;
-  margin: 0;
-}
+/* icon */
+.explore-icon-wrap { width: 90px; height: 90px; border-radius: 50%; background: #fff; display:flex; align-items:center; justify-content:center; margin-bottom: 12px; }
+.explore-icon { font-size: 44px; color: #a80000; }
 
-/* =========================================================
-   POPUP — ALWAYS VISIBLE ABOVE ADS
-========================================================= */
+/* title/subtitle */
+.explore-card h3 { margin: 6px 0 4px; font-size: 18px; font-weight:700; color: #a80000; }
+.explore-card p { margin: 0; color: #7a0000; }
+
+/* ---------------- POPUP (click to open) ---------------- */
 .explore-popup {
   position: absolute;
   bottom: calc(100% + 12px);
   left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  visibility: hidden;
-  width: 300px;
+  transform: translateX(-50%) translateY(8px);
+  width: 320px;
   max-width: 90vw;
   background: rgba(17,17,17,0.95);
   color: #fff;
   padding: 14px;
   border-radius: 10px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.45);
-  transition: opacity 0.22s ease, transform 0.22s ease;
-  z-index: 999999 !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, transform 0.18s cubic-bezier(.2,1,.3,1);
+  z-index: 99999;
 }
 
 .explore-popup.visible {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(-4px);
+  transform: translateX(-50%) translateY(0);
 }
 
-.popup-title { font-weight: 700; margin-bottom: 6px; }
-.popup-body { line-height: 1.45; font-size: 14px; max-height: 45vh; overflow-y: auto; }
+.popup-title { font-weight: 700; margin-bottom: 8px; }
+.popup-body { font-size: 14px; line-height: 1.5; max-height: 50vh; overflow-y: auto; }
+
+/* ---------------- small screens adjustments ---------------- */
+@media (max-width: 700px) {
+  .ad-track, .explore-scroll-track { gap: 14px; }
+  .ad-img { width: 84px; height: 84px; }
+  .explore-icon { font-size: 36px; }
+  .card-size, .cat-item, .ad-card, .explore-card { width: 160px; height: 190px; flex: 0 0 160px; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); justify-items: center; }
+}

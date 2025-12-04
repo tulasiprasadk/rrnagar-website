@@ -8,30 +8,10 @@ import ExploreItem from "../components/ExploreItem";
 import "./Home.css";
 
 const ads = [
-  {
-    id: 1,
-    href: "https://ichase.in",
-    src: ad1,
-    alt: "Fitness",
-  },
-  {
-    id: 2,
-    href: "https://vchase.in",
-    src: ad2,
-    alt: "Marketing",
-  },
-  {
-    id: 3,
-    href: "https://rrnagar.com",
-    src: ad3,
-    alt: "Crackers",
-  },
-  {
-    id: 4,
-    href: "https://renee.pet",
-    src: ad4,
-    alt: "Pet Care",
-  },
+  { id: 1, href: "https://ichase.in", src: ad1, alt: "Fitness" },
+  { id: 2, href: "https://vchase.in", src: ad2, alt: "Marketing" },
+  { id: 3, href: "https://rrnagar.com", src: ad3, alt: "Crackers" },
+  { id: 4, href: "https://renee.pet", src: ad4, alt: "Pet Care" },
 ];
 
 export default function Home() {
@@ -46,8 +26,12 @@ export default function Home() {
           <h1 className="hero-title">ನಮ್ಮಿಂದ ನಿಮಗೆ — ನಿಮ್ಮಷ್ಟೇ ಹತ್ತಿರ.</h1>
           <p className="hero-sub">From Us To You — As Close As You Need Us.</p>
           <div className="search-box">
-            <input type="text" placeholder="Search RR Nagar shops, services…" />
-            <button>Search</button>
+            <input
+              type="text"
+              placeholder="Search RR Nagar shops, services…"
+              aria-label="Search"
+            />
+            <button type="button">Search</button>
           </div>
         </div>
       </section>
@@ -65,25 +49,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ads Section */}
-      <section className="ad-section" aria-label="Promotions">
-        <div className="ad-track" role="list">
-          {ads.concat(ads).map((ad, index) => (
-            <div key={index} className="ad-card">
-              <img src={ad.src} alt={ad.alt} className="ad-img" />
-              <a
-                href={ad.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ad-name"
-                style={{ textDecoration: "none", color: "#c8102e" }}
-              >
-                {ad.alt}
-              </a>
-            </div>
-          ))}
+{/* Ads Section */}
+<section className="ad-section" aria-label="Promotions">
+  <div className="ad-marquee">
+    <div className="ad-track">
+      {[...ads, ...ads].map((ad, index) => (
+        <div key={index} className="ad-card">
+          <a
+            href={ad.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ad-link"
+          >
+            <img src={ad.src} alt={ad.alt} className="ad-img" />
+          </a>
+          <div className="ad-name">{ad.alt}</div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Explore Section */}
       <section className="explore-section">

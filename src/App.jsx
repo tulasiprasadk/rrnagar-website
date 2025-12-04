@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
+
 import Home from './pages/Home';
 import Account from './pages/Account';
 import Contact from './pages/Contact';
@@ -9,6 +11,7 @@ import Privacy from './pages/Privacy';
 import PartnerUs from './pages/PartnerUs';
 import Help from './pages/Help';
 
+import Products from './pages/Products';   // ⭐ ADD THIS
 
 function NotFound() {
   return (
@@ -28,6 +31,7 @@ export default function App() {
         <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />  {/* ⭐ ADD THIS */}
             <Route path="/account" element={<Account />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />

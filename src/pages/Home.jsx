@@ -73,11 +73,7 @@ export default function Home() {
           <div className="ad-track">
             {[...ads, ...ads].map((ad, index) => (
               <div key={index} className="ad-card">
-                <a
-                  href={ad.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={ad.href} target="_blank" rel="noopener noreferrer">
                   <img src={ad.src} alt={ad.alt} className="ad-img" />
                 </a>
                 <div className="ad-name">{ad.alt}</div>
@@ -94,4 +90,11 @@ export default function Home() {
           <ExploreItem icon="🛕" title="Temples" desc="Spiritual & heritage." />
           <ExploreItem icon="🌳" title="Parks" desc="Green spaces." />
           <ExploreItem icon="🖥️" title="IT Parks" desc="Tech hubs." />
-          <ExploreItem ico
+          <ExploreItem icon="🎓" title="Education" desc="Schools & colleges." />
+          <ExploreItem icon="🎭" title="Entertainment" desc="Fun places." />
+        </div>
+      </section>
+
+    </main>
+  );
+}

@@ -15,15 +15,10 @@
   display: flex;
   gap: 28px;
   align-items: center;
-<<<<<<< HEAD
-=======
-  gap: 30px;
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
   flex-wrap: wrap;
 }
 
 .hero-image img {
-<<<<<<< HEAD
   max-width: 480px;
   width: 100%;
   height: auto;
@@ -35,12 +30,6 @@
 .hero-text {
   flex: 1 1 320px;
   min-width: 220px;
-=======
-  width: 480px;
-  max-width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
 }
 
 .hero-title {
@@ -59,23 +48,12 @@
   margin-top: 12px;
   display: flex;
   gap: 10px;
-<<<<<<< HEAD
-  flex-wrap: nowrap;
 }
 
 .search-box input {
-  flex: 1 1 220px;
-  min-width: 0; /* allow shrinking on narrow screens */
+  flex: 1;
+  min-width: 0;
   padding: 10px;
-=======
-  flex-wrap: wrap;
-}
-
-.search-box input {
-  width: 340px;
-  max-width: 100%;
-  padding: 12px;
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
   border-radius: 8px;
   border: 1px solid #aaa;
   box-sizing: border-box;
@@ -91,7 +69,7 @@
   cursor: pointer;
 }
 
-/* POPULAR CATEGORIES — FIX ONE ROW */
+/* ================= POPULAR CATEGORIES ================= */
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -99,15 +77,28 @@
   width: 100%;
 }
 
-/* Mobile view */
 @media (max-width: 700px) {
   .cat-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ================= ADVERTISEMENT — INFINITE SCROLL MARQUEE ================= */
+.cat-item {
+  background: #ffd700;
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #a80000;
+}
 
+.cat-icon {
+  font-size: 22px;
+  display: block;
+}
+
+/* ================= ADS MARQUEE ================= */
 .ad-section {
   margin: 40px 0;
   overflow: hidden;
@@ -122,57 +113,9 @@
 
 .ad-track {
   display: flex;
-<<<<<<< HEAD
   gap: 32px;
   width: max-content;
   animation: marqueeScroll 22s linear infinite;
-=======
-  gap: 150px;
-  align-items: center;
-  animation: adsScroll 35s linear infinite;
-}
-
-.ad-card {
-  width: 160px;
-  padding: 12px 15px;
-  background: white;
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  text-align: center;
-}
-
-.ad-img {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  border-radius: 12px;
-}
-
-.ad-name {
-  font-size: 13px;
-  font-weight: 500;
-  color: #c8102e;
-  word-break: break-word;
-  white-space: normal;
-  line-height: 1.2;
-  padding: 0 4px;
-  max-width: 100%;
-}
-
-
-@keyframes adsScroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
 }
 
 .ad-section:hover .ad-track {
@@ -204,14 +147,10 @@
   color: #c8102e;
 }
 
-/* Keyframes for smooth infinite marquee */
+/* Marquee Animation */
 @keyframes marqueeScroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* ================= EXPLORE ================= */
@@ -220,25 +159,15 @@
 }
 
 .explore-section h2 {
-<<<<<<< HEAD
   font-size: 24px;
   margin-bottom: 14px;
   color: #222;
-=======
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #000; /* made darker for contrast */
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
 }
 
 .explore-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-<<<<<<< HEAD
   gap: 18px;
-=======
-  gap: 22px;
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
 }
 
 .explore-card {
@@ -247,11 +176,7 @@
   border-radius: 14px;
   text-align: center;
   position: relative;
-<<<<<<< HEAD
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-=======
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
 }
 
 .explore-icon-wrap {
@@ -269,7 +194,7 @@
   font-size: 30px;
 }
 
-/* POPUP (kept same) */
+/* Popup */
 .explore-popup {
   position: absolute;
   bottom: calc(100% + 6px);
@@ -281,202 +206,23 @@
   background: #111;
   color: #fff;
   border-radius: 10px;
-<<<<<<< HEAD
   padding: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.25);
   transition: 0.18s ease;
-=======
-  padding: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  transition: 0.2s ease;
-  z-index: 10;
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
+  z-index: 999;
 }
 
 .explore-popup.visible {
   opacity: 1;
   visibility: visible;
-/* ================= EXPLORE ================= */
-.explore-section {
-  margin-top: 28px;
 }
 
-.explore-section h2 {
-  font-size: 24px;
-  margin-bottom: 14px;
-  color: #222;
+.popup-title { 
+  font-size: 15px; 
+  font-weight: 700; 
 }
 
-/* Horizontal scroll for Discover */
-.explore-grid {
-  display: flex;
-  gap: 18px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-.explore-grid::-webkit-scrollbar {
-  height: 8px;
-}
-
-.explore-grid::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.15);
-  border-radius: 6px;
-}
-
-.explore-card {
-  flex: 0 0 200px;          /* fixed card width for clean scroll */
-  scroll-snap-align: start;
-  background: #ffe865;
-  padding: 20px;
-  border-radius: 14px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-}
-
-.explore-icon-wrap {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 10px auto;
-}
-
-.explore-icon {
-  font-size: 30px;
-}
-
-/* ================= POPUP — PREMIUM ANIMATION ================= */
-
-.explore-popup {
-  position: absolute;
-  bottom: calc(100% + 12px);      /* more breathing space */
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  opacity: 0;
-  visibility: hidden;
-
-  width: 330px;                   /* wider for more content */
-  max-width: 90vw;                /* safe on mobile */
-  background: rgba(20, 20, 20, 0.85);
-  backdrop-filter: blur(8px);     /* glass blur effect */
-  -webkit-backdrop-filter: blur(8px);
-
-  color: #fff;
-  border-radius: 14px;
-  padding: 18px 20px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
-
-  transition:
-    opacity 0.28s ease,
-    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0s linear 0.28s;
-
-  z-index: 9999;
-  line-height: 1.55;
-
-  pointer-events: none;   /* hover won't break */
-}
-
-/* Visible state */
-.explore-popup.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0px);
-  transition:
-    opacity 0.28s ease,
-    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0s;
-}
-
-/* Popup Arrow */
-.explore-popup::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 14px;
-
-  background: rgba(20, 20, 20, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
-  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
-}
-
-/* Title & Body */
-.popup-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.popup-body {
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-/* Make popup always above ads */
-.explore-popup {
-  z-index: 9999;   /* highest priority */
-}
-
-
-}
-
-.popup-title { font-size: 15px; font-weight: 700; }
-.popup-body  { font-size: 13px; line-height: 1.38; }
-
-/* HEADER NAV helper (kept minimal) */
-.header-nav {
-  display: flex;
-  gap: 24px;
-  font-size: 15px;
-  font-weight: 600;
-<<<<<<< HEAD
-  align-items: center;
-=======
-  height: 100%;
-  align-items: center;
-  margin-top: -1px;
-}
-
-/* ================= MEDIA QUERIES ================= */
-@media (max-width: 768px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .search-box {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .explore-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  }
-
-  .cat-grid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  }
-
-  .ad-track {
-    gap: 60px;
-  }
-
-  .ad-card {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
+.popup-body { 
+  font-size: 13px; 
+  line-height: 1.38; 
 }

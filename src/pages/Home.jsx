@@ -44,19 +44,19 @@ export default function Home() {
           <div className="search-box">
             <input
               type="text"
-<<<<<<< HEAD
+
               placeholder="Search RR Nagar shops, services…"
               aria-label="Search"
             />
             <button type="button">Search</button>
-=======
+
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && doSearch()}
               placeholder="Search RR Nagar shops, services…"
             />
             <button onClick={doSearch}>Search</button>
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
+
           </div>
         </div>
       </section>
@@ -74,7 +74,7 @@ export default function Home() {
         </div>
       </section>
 
-<<<<<<< HEAD
+
 {/* Ads Section */}
 <section className="ad-section" aria-label="Promotions">
   <div className="ad-marquee">
@@ -90,7 +90,7 @@ export default function Home() {
             <img src={ad.src} alt={ad.alt} className="ad-img" />
           </a>
           <div className="ad-name">{ad.alt}</div>
-=======
+
       {/* Ads Section */}
       <section className="ad-section">
         <div className="ad-track">
@@ -101,8 +101,7 @@ export default function Home() {
                 {ad.alt}
               </a>
             </div>
-          ))}
->>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
+
         </div>
       ))}
     </div>

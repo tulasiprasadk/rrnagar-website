@@ -23,7 +23,7 @@
 /* LOGO in yellow area (top section) */
 .rr-logo {
   position: absolute;
-  top: 5px;     /* adjust up/down */
+  top: 5px;
   left: 0;
   height: 110px;
   width: auto;
@@ -33,7 +33,7 @@
 /* TAGLINE in red area (bottom section) */
 .rr-tagline {
   position: absolute;
-  bottom: 4px;   /* adjust up/down */
+  bottom: 4px;
   left: 0;
   font-size: 18px;
   font-weight: bold;
@@ -44,11 +44,11 @@
 .header-nav {
   display: flex;
   gap: 40px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   height: 100%;
-  align-items: center;       /* <-- This centers perfectly between red & yellow */
-  margin-top: -1px;          /* Fine tune vertical alignment */
+  align-items: center;
+  margin-top: -1px;
 }
 
 .header-nav a {
@@ -56,6 +56,9 @@
   text-decoration: none;
   padding: 4px 6px;
   transition: 0.2s ease;
+  font-size: 18px; /* Default desktop */
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 
@@ -64,4 +67,55 @@
   opacity: 0.7;
 }
 
+<<<<<<< HEAD
 
+=======
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
+
+/* Tablet View */
+@media (min-width: 601px) and (max-width: 992px) {
+  .header-nav {
+    gap: 30px;
+  }
+
+  .header-nav a {
+    font-size: 16px;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 600px) {
+  .header-container {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .header-left {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .rr-logo {
+    position: static;
+    height: 90px;
+  }
+
+  .rr-tagline {
+    position: static;
+    margin-top: 8px;
+    font-size: 16px;
+  }
+
+  .header-nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .header-nav a {
+    font-size: 14px;
+  }
+}
+>>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d

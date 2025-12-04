@@ -1,9 +1,14 @@
-﻿import React from "react";
+﻿// src/pages/Home.jsx
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import heroImg from "../assets/hero.jpg";
 import ad1 from "../assets/ads/ad1.jpg";
 import ad2 from "../assets/ads/ad2.jpg";
 import ad3 from "../assets/ads/ad3.jpg";
 import ad4 from "../assets/ads/ad4.jpg";
+
 import ExploreItem from "../components/ExploreItem";
 import "./Home.css";
 
@@ -15,28 +20,48 @@ const ads = [
 ];
 
 export default function Home() {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  function doSearch() {
+    if (!search.trim()) return;
+    navigate(`/products?search=${encodeURIComponent(search)}`);
+  }
+
   return (
     <main className="home-container">
+
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-image">
           <img src={heroImg} alt="RR Nagar" />
         </div>
+
         <div className="hero-text">
           <h1 className="hero-title">ನಮ್ಮಿಂದ ನಿಮಗೆ — ನಿಮ್ಮಷ್ಟೇ ಹತ್ತಿರ.</h1>
           <p className="hero-sub">From Us To You — As Close As You Need Us.</p>
+
           <div className="search-box">
             <input
               type="text"
+<<<<<<< HEAD
               placeholder="Search RR Nagar shops, services…"
               aria-label="Search"
             />
             <button type="button">Search</button>
+=======
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && doSearch()}
+              placeholder="Search RR Nagar shops, services…"
+            />
+            <button onClick={doSearch}>Search</button>
+>>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
           </div>
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Popular Categories */}
       <section className="popular-cat">
         <h2>Popular Categories</h2>
         <div className="cat-grid">
@@ -49,6 +74,7 @@ export default function Home() {
         </div>
       </section>
 
+<<<<<<< HEAD
 {/* Ads Section */}
 <section className="ad-section" aria-label="Promotions">
   <div className="ad-marquee">
@@ -64,6 +90,19 @@ export default function Home() {
             <img src={ad.src} alt={ad.alt} className="ad-img" />
           </a>
           <div className="ad-name">{ad.alt}</div>
+=======
+      {/* Ads Section */}
+      <section className="ad-section">
+        <div className="ad-track">
+          {ads.concat(ads).map((ad, i) => (
+            <div key={i} className="ad-card">
+              <img src={ad.src} alt={ad.alt} className="ad-img" />
+              <a href={ad.href} target="_blank" rel="noopener noreferrer" className="ad-name">
+                {ad.alt}
+              </a>
+            </div>
+          ))}
+>>>>>>> a64b41c10de14faf8b075bffbf08d84a41332f0d
         </div>
       ))}
     </div>
@@ -71,42 +110,18 @@ export default function Home() {
 </section>
 
 
-      {/* Explore Section */}
+      {/* Explore */}
       <section className="explore-section">
         <h2>Discover RR Nagar</h2>
         <div className="explore-grid">
-          <ExploreItem
-            icon="🛕"
-            title="Temples"
-            desc="Spiritual & heritage sites."
-            longInfo="Famous temples: Rajarajeshwari Temple, Bhuvaneshwari Temple, Sri Muktheertheshwara."
-          />
-          <ExploreItem
-            icon="🌳"
-            title="Parks"
-            desc="Green peaceful spaces."
-            longInfo="Biodiversity Park, BDA parks, and community gardens to relax."
-          />
-          <ExploreItem
-            icon="🖥️"
-            title="IT Parks"
-            desc="Major tech hubs nearby."
-            longInfo="Very close to Global Village Tech Park with many IT companies."
-          />
-          <ExploreItem
-            icon="🎓"
-            title="Education"
-            desc="Schools & colleges."
-            longInfo="RR Nagar has top schools, PU colleges and coaching centers."
-          />
-          <ExploreItem
-            icon="🎭"
-            title="Entertainment"
-            desc="Malls & fun places."
-            longInfo="Malls, theatres, events and gaming zones for families."
-          />
+          <ExploreItem icon="🛕" title="Temples" desc="Spiritual & heritage." />
+          <ExploreItem icon="🌳" title="Parks" desc="Green spaces." />
+          <ExploreItem icon="🖥️" title="IT Parks" desc="Tech hubs." />
+          <ExploreItem icon="🎓" title="Education" desc="Schools & colleges." />
+          <ExploreItem icon="🎭" title="Entertainment" desc="Fun places." />
         </div>
       </section>
+
     </main>
   );
 }
